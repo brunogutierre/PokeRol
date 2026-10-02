@@ -5,12 +5,18 @@ import java.net.URI;
 import com.brunogutierre.pokerol.pokeapi.PokeApiException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.jspecify.annotations.Nullable;
+import org.springframework.beans.TypeMismatchException;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 /**
@@ -23,6 +29,15 @@ class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	static final URI UPSTREAM_UNAVAILABLE = URI.create("/problems/upstream-unavailable");
 
 	private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
+	/** Invalid query parameter value, e.g. {@code ?lang=xx} or {@code ?page=abc}. */
+	@Override
+	protected @Nullable ResponseEntity<Object> handleTypeMismatch(TypeMismatchException ex, HttpHeaders headers,
+			HttpStatusCode status, WebRequest request) {
+		var problem = ProblemDetail.forStatusAndDetail(status,
+				"Invalid value '%s' for parameter '%s'".formatted(ex.getValue(), ex.getPropertyName()));
+		return handleExceptionInternal(ex, problem, headers, status, request);
+	}
 
 	/** PokeAPI does not know the requested resource, so neither do we. */
 	@ExceptionHandler(HttpClientErrorException.NotFound.class)
