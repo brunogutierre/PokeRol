@@ -126,6 +126,23 @@ describe('PokemonListPage', () => {
     expectList('page=0&size=18&sort=number&dir=asc').flush(page());
   });
 
+  it('explains invalid filters (400) and offers to clear them', async () => {
+    const { harness, el } = await open('/pokemon?type=plasma');
+    expectList('page=0&size=18&sort=number&dir=asc&type=plasma').flush(
+      { title: 'Bad Request', status: 400 },
+      { status: 400, statusText: 'Bad Request' },
+    );
+    await harness.fixture.whenStable();
+    expect(el().querySelector('[role="alert"]')?.textContent).toContain(
+      'These filters are not valid',
+    );
+
+    el().querySelector<HTMLButtonElement>('[role="alert"] button')!.click();
+    await settle();
+    expect(TestBed.inject(Router).url).toBe('/pokemon');
+    expectList('page=0&size=18&sort=number&dir=asc').flush(page());
+  });
+
   it('shows an error that can be retried', async () => {
     const { harness, el } = await open('/pokemon');
     expectList('page=0&size=18&sort=number&dir=asc').flush(

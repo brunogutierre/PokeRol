@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import {
   DOCUMENT,
   ChangeDetectionStrategy,
@@ -74,6 +75,11 @@ export default class PokemonListPage {
   protected readonly items = computed(() =>
     this.result.hasValue() ? this.result.value().items : [],
   );
+  /** The API rejects unknown filters (e.g. a type that does not exist) with 400. */
+  protected readonly invalidQuery = computed(() => {
+    const error = this.result.error();
+    return error instanceof HttpErrorResponse && error.status === 400;
+  });
   protected readonly hasFilters = computed(() => this.query().q !== '' || this.query().type !== '');
 
   /** "Swipe to change page" is shown once, on touch screens only. */
