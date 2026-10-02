@@ -1,0 +1,1 @@
+{"count": 1025, "next": "https://pokeapi.co/api/v2/pokemon-species?offset=3&limit=3", "previous": null, "results": [{"name": "bulbasaur", "url": "https://pokeapi.co/api/v2/pokemon-species/1/"}, {"name": "ivysaur", "url": "https://pokeapi.co/api/v2/pokemon-species/2/"}, {"name": "venusaur", "url": "https://pokeapi.co/api/v2/pokemon-species/3/"}]}

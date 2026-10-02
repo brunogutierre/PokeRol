@@ -33,3 +33,11 @@ management:
   endpoint:
     health:
       show-details: never
+
+pokeapi:
+  base-url: https://pokeapi.co/api/v2
+  graphql-url: https://graphql.pokeapi.co/v1beta2
+  # PokeAPI fair use: identify the client.
+  user-agent: PokeRol (https://github.com/brunogutierre/PokeRol)
+  connect-timeout: 3s
+  read-timeout: 10s
