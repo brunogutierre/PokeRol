@@ -13,6 +13,7 @@ import { ListQuery, sanitizeListQuery, toQueryParams } from '../../core/api/list
 import { PokemonApi } from '../../core/api/pokemon-api';
 import { StateMessage } from '../../shared/state-message/state-message';
 import { ListSkeleton } from './list-skeleton/list-skeleton';
+import { ListToolbar } from './list-toolbar/list-toolbar';
 import { Pagination } from './pagination/pagination';
 import { PokemonCard } from './pokemon-card/pokemon-card';
 
@@ -22,7 +23,7 @@ import { PokemonCard } from './pokemon-card/pokemon-card';
  */
 @Component({
   selector: 'app-pokemon-list-page',
-  imports: [TranslocoPipe, StateMessage, ListSkeleton, Pagination, PokemonCard],
+  imports: [TranslocoPipe, StateMessage, ListSkeleton, ListToolbar, Pagination, PokemonCard],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './pokemon-list.page.html',
   styleUrl: './pokemon-list.page.scss',
@@ -46,7 +47,9 @@ export default class PokemonListPage {
       dir: this.dir(),
     }),
   );
-  protected readonly result = inject(PokemonApi).list(this.query);
+  private readonly api = inject(PokemonApi);
+  protected readonly result = this.api.list(this.query);
+  protected readonly types = this.api.types();
 
   /** Last successful page, kept while the next one loads (e.g. for the pagination total). */
   protected readonly lastPage = linkedSignal<PokemonPage | undefined, PokemonPage | undefined>({

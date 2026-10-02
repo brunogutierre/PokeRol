@@ -1,5 +1,11 @@
 <h1 class="visually-hidden">{{ 'list.heading' | transloco }}</h1>
 
+<app-list-toolbar
+  [query]="query()"
+  [types]="types.hasValue() ? types.value() : []"
+  (queryChange)="navigate($event)"
+/>
+
 @if (result.error()) {
   <app-state-message
     kind="error"

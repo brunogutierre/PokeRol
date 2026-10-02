@@ -36,6 +36,7 @@ describe('PokemonListPage', () => {
 
   async function open(url: string) {
     const harness = await RouterTestingHarness.create(url);
+    http.expectOne(`${API}/api/v1/types?lang=en`).flush([{ key: 'fire', name: 'Fire' }]);
     const el = () => harness.routeNativeElement as HTMLElement;
     return { harness, el };
   }
@@ -55,6 +56,19 @@ describe('PokemonListPage', () => {
     expect(el().querySelector('.count')?.textContent?.trim()).toBe('2 Pokémon');
     expect(el().querySelector('app-pagination')).toBeNull();
     expect(el().querySelector('h1')?.textContent).toBe('Pokédex');
+  });
+
+  it('turns toolbar changes into URL changes (deep link)', async () => {
+    const { harness, el } = await open('/pokemon?page=2&type=fire');
+    expectList('page=2&size=18&sort=number&dir=asc&type=fire').flush(page({ totalPages: 5 }));
+    await harness.fixture.whenStable();
+
+    const sort = el().querySelectorAll('select')[1];
+    sort.value = 'name-desc';
+    sort.dispatchEvent(new Event('change'));
+    await settle();
+    expect(TestBed.inject(Router).url).toBe('/pokemon?type=fire&sort=name&dir=desc');
+    expectList('page=0&size=18&sort=name&dir=desc&type=fire').flush(page());
   });
 
   it('sanitizes the URL params before calling the API', async () => {
