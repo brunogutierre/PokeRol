@@ -17,7 +17,7 @@ public final class PokeApiTestSupport {
 	public static final String GRAPHQL_URL = "https://graphql.pokeapi.test/v1beta2";
 
 	public static final PokeApiProperties PROPERTIES = new PokeApiProperties(URI.create(BASE_URL),
-			URI.create(GRAPHQL_URL), "PokeRol (test)", Duration.ofSeconds(1), Duration.ofSeconds(1));
+			URI.create(GRAPHQL_URL), "PokeRol (test)", Duration.ofSeconds(1), Duration.ofSeconds(1), 2, Duration.ZERO);
 
 	private PokeApiTestSupport() {
 	}

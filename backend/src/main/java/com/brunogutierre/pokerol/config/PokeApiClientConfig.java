@@ -3,6 +3,7 @@ package com.brunogutierre.pokerol.config;
 import java.net.http.HttpClient;
 
 import com.brunogutierre.pokerol.pokeapi.PokeApiRestClient;
+import com.brunogutierre.pokerol.pokeapi.RetryInterceptor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +16,8 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 
 /**
  * Builds the two PokeAPI clients on top of Boot's {@link RestClient.Builder} (which brings
- * Jackson and observability): JDK {@code HttpClient} with timeouts and a descriptive User-Agent.
+ * Jackson and observability): JDK {@code HttpClient} with timeouts, descriptive User-Agent
+ * and retry on I/O errors and 5xx responses.
  */
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(PokeApiProperties.class)
@@ -45,7 +47,8 @@ public class PokeApiClientConfig {
 	}
 
 	private static RestClient.Builder common(RestClient.Builder builder, PokeApiProperties properties) {
-		return builder.defaultHeader(HttpHeaders.USER_AGENT, properties.userAgent());
+		return builder.defaultHeader(HttpHeaders.USER_AGENT, properties.userAgent())
+			.requestInterceptor(new RetryInterceptor(properties.maxRetries(), properties.retryBackoff()));
 	}
 
 }

@@ -1,13 +1,18 @@
 package com.brunogutierre.pokerol.pokeapi;
 
+import java.net.SocketTimeoutException;
+
 import com.brunogutierre.pokerol.config.PokeApiClientConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClient;
 
 import static com.brunogutierre.pokerol.pokeapi.PokeApiTestSupport.BASE_URL;
@@ -16,10 +21,14 @@ import static com.brunogutierre.pokerol.pokeapi.PokeApiTestSupport.fixture;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.springframework.test.web.client.ExpectedCount.once;
+import static org.springframework.test.web.client.ExpectedCount.times;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.header;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withException;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withResourceNotFound;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withServerError;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 class PokeApiRestClientTest {
@@ -104,6 +113,34 @@ class PokeApiRestClientTest {
 		server.expect(once(), requestTo(BASE_URL + "/pokemon/99999")).andRespond(withResourceNotFound());
 
 		assertThatExceptionOfType(HttpClientErrorException.NotFound.class).isThrownBy(() -> client.getPokemon(99999));
+		server.verify();
+	}
+
+	@Test
+	void retriesServerErrorsThenSucceeds() {
+		server.expect(times(2), requestTo(BASE_URL + "/evolution-chain/10")).andRespond(withServerError());
+		server.expect(requestTo(BASE_URL + "/evolution-chain/10"))
+			.andRespond(withSuccess(fixture("pokeapi/evolution-chain-10.json"), MediaType.APPLICATION_JSON));
+
+		assertThat(client.getEvolutionChain(10).id()).isEqualTo(10);
+		server.verify();
+	}
+
+	@Test
+	void givesUpAfterTwoRetries() {
+		server.expect(times(3), requestTo(BASE_URL + "/evolution-chain/10"))
+			.andRespond(withStatus(HttpStatus.BAD_GATEWAY));
+
+		assertThatExceptionOfType(HttpServerErrorException.class).isThrownBy(() -> client.getEvolutionChain(10));
+		server.verify();
+	}
+
+	@Test
+	void retriesIoErrorsAndFinallyReportsThem() {
+		server.expect(times(3), requestTo(BASE_URL + "/evolution-chain/10"))
+			.andRespond(withException(new SocketTimeoutException("Read timed out")));
+
+		assertThatExceptionOfType(ResourceAccessException.class).isThrownBy(() -> client.getEvolutionChain(10));
 		server.verify();
 	}
 

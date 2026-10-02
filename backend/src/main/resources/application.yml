@@ -41,3 +41,5 @@ pokeapi:
   user-agent: PokeRol (https://github.com/brunogutierre/PokeRol)
   connect-timeout: 3s
   read-timeout: 10s
+  max-retries: 2
+  retry-backoff: 300ms
