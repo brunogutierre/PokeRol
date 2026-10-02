@@ -9,6 +9,11 @@ export const routes: Routes = [
     loadComponent: () => import('./features/pokemon-list/pokemon-list.page'),
   },
   {
+    path: 'pokemon/:id',
+    title: 'titles.detail',
+    loadComponent: () => import('./features/pokemon-detail/pokemon-detail.page'),
+  },
+  {
     path: '**',
     title: 'titles.notFound',
     loadComponent: () => import('./features/not-found/not-found.page'),

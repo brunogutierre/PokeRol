@@ -57,5 +57,30 @@
     "of": "of {{ total }}",
     "pageInput": "Page number",
     "status": "Page {{ page }} of {{ total }}"
+  },
+  "detail": {
+    "back": "Back to list",
+    "neighbours": "Neighbouring Pokémon",
+    "prev": "Previous Pokémon, {{ number }}",
+    "next": "Next Pokémon, {{ number }}",
+    "artworkAlt": "Official artwork of {{ name }}",
+    "flavor": "Pokédex entry",
+    "fallbackLanguage": "Some data is only available in English.",
+    "stats": "Base stats",
+    "total": "Total",
+    "abilities": "Abilities",
+    "hidden": "Hidden",
+    "biology": "Biology",
+    "height": "Height",
+    "weight": "Weight",
+    "color": "Color",
+    "shape": "Shape",
+    "habitat": "Habitat",
+    "unknown": "Unknown",
+    "evolution": "Evolution",
+    "evolutionChain": "Evolution chain",
+    "noEvolution": "This Pokémon does not evolve.",
+    "varieties": "Forms",
+    "default": "Default"
   }
 }
