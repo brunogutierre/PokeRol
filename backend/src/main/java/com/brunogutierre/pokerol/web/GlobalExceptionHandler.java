@@ -1,11 +1,16 @@
 package com.brunogutierre.pokerol.web;
 
+import java.net.URI;
+
+import com.brunogutierre.pokerol.pokeapi.PokeApiException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 /**
@@ -15,7 +20,26 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestControllerAdvice
 class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
+	static final URI UPSTREAM_UNAVAILABLE = URI.create("/problems/upstream-unavailable");
+
 	private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
+	/** PokeAPI does not know the requested resource, so neither do we. */
+	@ExceptionHandler(HttpClientErrorException.NotFound.class)
+	ProblemDetail handleUpstreamNotFound(HttpClientErrorException.NotFound ex) {
+		return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, "The requested resource does not exist");
+	}
+
+	/** PokeAPI is down, slow, rate limiting us or answering garbage: a gateway problem (502). */
+	@ExceptionHandler({ RestClientException.class, PokeApiException.class })
+	ProblemDetail handleUpstreamFailure(RuntimeException ex) {
+		log.warn("PokeAPI call failed: {}", ex.toString());
+		var problem = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_GATEWAY,
+				"PokeAPI is unavailable right now, please try again later");
+		problem.setType(UPSTREAM_UNAVAILABLE);
+		problem.setTitle("Upstream unavailable");
+		return problem;
+	}
 
 	/** Last resort: log the failure, but never leak stack traces or internals to clients. */
 	@ExceptionHandler(Exception.class)

@@ -2,6 +2,7 @@ package com.brunogutierre.pokerol.config;
 
 import java.net.http.HttpClient;
 
+import com.brunogutierre.pokerol.pokeapi.PokeApiGraphQlClient;
 import com.brunogutierre.pokerol.pokeapi.PokeApiRestClient;
 import com.brunogutierre.pokerol.pokeapi.RetryInterceptor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -28,12 +29,22 @@ public class PokeApiClientConfig {
 		return restClient(builder.requestFactory(requestFactory(properties)), properties);
 	}
 
+	@Bean
+	PokeApiGraphQlClient pokeApiGraphQlClient(RestClient.Builder builder, PokeApiProperties properties) {
+		return graphQlClient(builder.requestFactory(requestFactory(properties)), properties);
+	}
+
 	/** Creates the REST client; the builder's request factory is kept (tests bind a mock server). */
 	public static PokeApiRestClient restClient(RestClient.Builder builder, PokeApiProperties properties) {
 		var restClient = common(builder, properties).baseUrl(properties.baseUrl()).build();
 		return HttpServiceProxyFactory.builderFor(RestClientAdapter.create(restClient))
 			.build()
 			.createClient(PokeApiRestClient.class);
+	}
+
+	/** Creates the GraphQL client; the builder's request factory is kept (tests bind a mock server). */
+	public static PokeApiGraphQlClient graphQlClient(RestClient.Builder builder, PokeApiProperties properties) {
+		return new PokeApiGraphQlClient(common(builder, properties).baseUrl(properties.graphqlUrl()).build());
 	}
 
 	static ClientHttpRequestFactory requestFactory(PokeApiProperties properties) {
