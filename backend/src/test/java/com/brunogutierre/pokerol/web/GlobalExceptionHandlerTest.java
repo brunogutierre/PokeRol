@@ -1,5 +1,6 @@
 package com.brunogutierre.pokerol.web;
 
+import com.brunogutierre.pokerol.i18n.Lang;
 import com.brunogutierre.pokerol.pokeapi.PokeApiException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.assertj.MockMvcTester;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
@@ -61,8 +63,27 @@ class GlobalExceptionHandlerTest {
 					 "detail":"PokeAPI is unavailable right now, please try again later","instance":"%s"}""".formatted(uri));
 	}
 
+	@Test
+	void bindsLangCaseInsensitively() {
+		assertThat(mvc.get().uri("/test/lang?lang=PT-br")).hasStatusOk().hasBodyTextEqualTo("pt-BR");
+	}
+
+	@Test
+	void rejectsUnsupportedLang() {
+		assertThat(mvc.get().uri("/test/lang?lang=de")).hasStatus(HttpStatus.BAD_REQUEST)
+			.hasContentType(MediaType.APPLICATION_PROBLEM_JSON)
+			.bodyJson()
+			.extractingPath("$.detail")
+			.isEqualTo("Invalid value 'de' for parameter 'lang'");
+	}
+
 	@RestController
 	static class FailingController {
+
+		@GetMapping("/test/lang")
+		String lang(@RequestParam Lang lang) {
+			return lang.code();
+		}
 
 		@GetMapping("/test/upstream-404")
 		String upstreamNotFound() {
