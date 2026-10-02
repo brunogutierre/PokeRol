@@ -9,7 +9,11 @@ export function provideTranslocoTesting(): EnvironmentProviders {
   return importProvidersFrom(
     TranslocoTestingModule.forRoot({
       langs: { en, es },
-      translocoConfig: { availableLangs: [...LANGS], defaultLang: 'en' },
+      translocoConfig: {
+        availableLangs: [...LANGS],
+        defaultLang: 'en',
+        reRenderOnLangChange: true,
+      },
       preloadLangs: true,
     }),
   );

@@ -1,0 +1,52 @@
+@use 'mixins' as *;
+
+:host {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: block;
+  background: var(--c-surface);
+  box-shadow: var(--shadow-1);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  max-width: var(--container);
+  min-height: var(--header-h);
+  margin: 0 auto;
+  padding: var(--sp-1) var(--sp-4);
+
+  @include up($bp-md) {
+    padding-inline: var(--sp-5);
+  }
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: 44px;
+  border-radius: var(--r-md);
+  color: var(--c-text);
+  text-decoration: none;
+}
+
+.mark {
+  @include pokeball-filled(26px);
+  flex: none;
+}
+
+.name {
+  font-family: var(--ff-display);
+  font-size: var(--fs-lg);
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}

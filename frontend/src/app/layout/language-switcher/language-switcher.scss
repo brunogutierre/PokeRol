@@ -1,0 +1,23 @@
+@use 'mixins' as *;
+
+.switcher {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.globe {
+  position: absolute;
+  left: var(--sp-3);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  pointer-events: none;
+}
+
+select {
+  @include field;
+  padding-left: calc(var(--sp-3) + 26px);
+  max-width: 11rem;
+  cursor: pointer;
+}
