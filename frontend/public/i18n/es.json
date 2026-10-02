@@ -83,5 +83,9 @@
     "noEvolution": "Este Pokémon no evoluciona.",
     "varieties": "Formas",
     "default": "Predeterminada"
+  },
+  "wakeUp": {
+    "waking": "Despertando el servidor… el alojamiento gratuito se duerme cuando está inactivo. Puede tardar alrededor de un minuto.",
+    "connected": "Conectado"
   }
 }

@@ -83,5 +83,9 @@
     "noEvolution": "This Pokémon does not evolve.",
     "varieties": "Forms",
     "default": "Default"
+  },
+  "wakeUp": {
+    "waking": "Waking up the server… free hosting sleeps when idle. This can take about a minute.",
+    "connected": "Connected"
   }
 }

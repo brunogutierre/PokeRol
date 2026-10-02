@@ -2,10 +2,11 @@ import { ChangeDetectionStrategy, Component, DOCUMENT, inject } from '@angular/c
 import { RouterOutlet } from '@angular/router';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { Header } from './layout/header/header';
+import { WakeUpBanner } from './layout/wake-up-banner/wake-up-banner';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, TranslocoPipe, Header],
+  imports: [RouterOutlet, TranslocoPipe, Header, WakeUpBanner],
   templateUrl: './app.html',
   styleUrl: './app.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
