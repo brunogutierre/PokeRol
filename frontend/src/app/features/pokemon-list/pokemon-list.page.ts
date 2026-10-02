@@ -1,11 +1,75 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  input,
+  linkedSignal,
+} from '@angular/core';
+import { Router } from '@angular/router';
 import { TranslocoPipe } from '@jsverse/transloco';
+import { PokemonPage } from '../../core/api/api.models';
+import { ListQuery, sanitizeListQuery, toQueryParams } from '../../core/api/list-query';
+import { PokemonApi } from '../../core/api/pokemon-api';
+import { StateMessage } from '../../shared/state-message/state-message';
+import { ListSkeleton } from './list-skeleton/list-skeleton';
+import { Pagination } from './pagination/pagination';
+import { PokemonCard } from './pokemon-card/pokemon-card';
 
-/** Placeholder; the list is implemented in the next iteration. */
+/**
+ * The Pokédex grid. Its state lives in the URL: query params arrive as inputs
+ * (withComponentInputBinding) and every change is a router navigation.
+ */
 @Component({
   selector: 'app-pokemon-list-page',
-  imports: [TranslocoPipe],
+  imports: [TranslocoPipe, StateMessage, ListSkeleton, Pagination, PokemonCard],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `<h1>{{ 'titles.list' | transloco }}</h1>`,
+  templateUrl: './pokemon-list.page.html',
+  styleUrl: './pokemon-list.page.scss',
 })
-export default class PokemonListPage {}
+export default class PokemonListPage {
+  // Raw query params (bound by the router).
+  readonly page = input<string>();
+  readonly q = input<string>();
+  readonly type = input<string>();
+  readonly sort = input<string>();
+  readonly dir = input<string>();
+
+  private readonly router = inject(Router);
+
+  protected readonly query = computed(() =>
+    sanitizeListQuery({
+      page: this.page(),
+      q: this.q(),
+      type: this.type(),
+      sort: this.sort(),
+      dir: this.dir(),
+    }),
+  );
+  protected readonly result = inject(PokemonApi).list(this.query);
+
+  /** Last successful page, kept while the next one loads (e.g. for the pagination total). */
+  protected readonly lastPage = linkedSignal<PokemonPage | undefined, PokemonPage | undefined>({
+    source: () => (this.result.hasValue() ? this.result.value() : undefined),
+    computation: (value, previous) => value ?? previous?.value,
+  });
+  protected readonly items = computed(() =>
+    this.result.hasValue() ? this.result.value().items : [],
+  );
+  protected readonly hasFilters = computed(() => this.query().q !== '' || this.query().type !== '');
+
+  protected navigate(changes: Partial<ListQuery>): void {
+    void this.router.navigate([], {
+      queryParams: toQueryParams(changes),
+      queryParamsHandling: 'merge',
+    });
+  }
+
+  protected goToPage(page: number): void {
+    this.navigate({ page });
+  }
+
+  protected clearFilters(): void {
+    void this.router.navigate([], { queryParams: {} });
+  }
+}
