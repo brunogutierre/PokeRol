@@ -13,6 +13,7 @@ import { TranslocoPipe } from '@jsverse/transloco';
 import { PokemonDetail } from '../../core/api/api.models';
 import { PokemonApi } from '../../core/api/pokemon-api';
 import { LanguageService } from '../../core/i18n/language.service';
+import { LocalNamePipe } from '../../core/i18n/localized-labels';
 import { TranslatedTitleStrategy } from '../../core/i18n/translated-title.strategy';
 import { ListState } from '../../core/list-state';
 import { RANDOM, randomInt } from '../../core/random';
@@ -41,6 +42,7 @@ const ID_PATTERN = /^[1-9]\d{0,5}$/;
     StatBars,
     EvolutionTree,
     SwipeDirective,
+    LocalNamePipe,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './pokemon-detail.page.html',

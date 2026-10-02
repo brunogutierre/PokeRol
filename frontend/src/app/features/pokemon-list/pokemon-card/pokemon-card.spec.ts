@@ -1,11 +1,14 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { page } from '../../../../testing/fixtures';
+import { provideTranslocoTesting } from '../../../../testing/i18n';
 import { PokemonCard } from './pokemon-card';
 
 describe('PokemonCard', () => {
   async function render() {
-    TestBed.configureTestingModule({ providers: [provideRouter([{ path: '**', children: [] }])] });
+    TestBed.configureTestingModule({
+      providers: [provideRouter([{ path: '**', children: [] }]), provideTranslocoTesting()],
+    });
     const fixture = TestBed.createComponent(PokemonCard);
     fixture.componentRef.setInput('pokemon', page().items[0]);
     await fixture.whenStable();
@@ -27,6 +30,22 @@ describe('PokemonCard', () => {
     expect(art.style.viewTransitionName).toBe('');
     el.querySelector('a')!.dispatchEvent(new MouseEvent('click', { cancelable: true }));
     expect(art.style.viewTransitionName).toBe('poke-1');
+  });
+
+  it('uses a neutral accent and no badges in degraded mode', async () => {
+    TestBed.configureTestingModule({ providers: [provideRouter([]), provideTranslocoTesting()] });
+    const fixture = TestBed.createComponent(PokemonCard);
+    fixture.componentRef.setInput('pokemon', {
+      ...page().items[0],
+      name: 'bulbasaur',
+      types: [],
+      color: null,
+    });
+    await fixture.whenStable();
+    const link = (fixture.nativeElement as HTMLElement).querySelector('a')!;
+    expect(link.style.getPropertyValue('--species')).toBe('var(--sc-gray, var(--sc-gray))');
+    expect(link.getAttribute('aria-label')).toBe('bulbasaur, #001');
+    expect(link.querySelectorAll('app-type-badge')).toHaveLength(0);
   });
 
   it('renders a lazy decorative sprite and falls back to a pokeball on error', async () => {

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { PokemonStat } from '../../../core/api/api.models';
+import { LocalNamePipe } from '../../../core/i18n/localized-labels';
 
 /** Highest possible base stat; bars are scaled against it. */
 export const MAX_BASE_STAT = 255;
@@ -15,12 +16,12 @@ export function statLevel(value: number): 'low' | 'mid' | 'good' | 'high' {
 
 @Component({
   selector: 'app-stat-bars',
-  imports: [TranslocoPipe],
+  imports: [TranslocoPipe, LocalNamePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @for (stat of stats(); track stat.key; let i = $index) {
       <div class="row">
-        <span class="label">{{ stat.name }}</span>
+        <span class="label" aria-hidden="true">{{ stat | localName: 'statsShort' }}</span>
         <span class="value">{{ stat.base }}</span>
         <span
           class="track"
@@ -28,7 +29,7 @@ export function statLevel(value: number): 'low' | 'mid' | 'good' | 'high' {
           aria-valuemin="0"
           [attr.aria-valuemax]="max"
           [attr.aria-valuenow]="stat.base"
-          [attr.aria-label]="stat.name"
+          [attr.aria-label]="stat | localName: 'stats'"
         >
           <span
             class="fill"

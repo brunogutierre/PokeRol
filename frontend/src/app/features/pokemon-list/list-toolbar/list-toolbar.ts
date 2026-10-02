@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslocoPipe } from '@jsverse/transloco';
+import { LocalNamePipe } from '../../../core/i18n/localized-labels';
 import { Subject, debounceTime } from 'rxjs';
 import { NamedKey } from '../../../core/api/api.models';
 import { ListQuery, SortDir, SortField } from '../../../core/api/list-query';
@@ -32,7 +33,7 @@ const SORT_OPTIONS: readonly SortOption[] = [
  */
 @Component({
   selector: 'app-list-toolbar',
-  imports: [TranslocoPipe],
+  imports: [TranslocoPipe, LocalNamePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './list-toolbar.html',
   styleUrl: './list-toolbar.scss',

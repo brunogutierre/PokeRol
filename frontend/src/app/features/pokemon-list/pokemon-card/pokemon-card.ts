@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { PokemonSummary } from '../../../core/api/api.models';
+import { LocalizedLabels } from '../../../core/i18n/localized-labels';
 import { DexNumberPipe, dexNumber } from '../../../shared/dex-number.pipe';
 import { TypeBadge } from '../../../shared/type-badge/type-badge';
 
@@ -15,7 +16,7 @@ import { TypeBadge } from '../../../shared/type-badge/type-badge';
       class="card"
       [routerLink]="['/pokemon', p.id]"
       [attr.aria-label]="label()"
-      [style.--species]="'var(--sc-' + p.color + ', var(--sc-gray))'"
+      [style.--species]="'var(--sc-' + (p.color ?? 'gray') + ', var(--sc-gray))'"
       (click)="art.style.viewTransitionName = 'poke-' + p.id"
     >
       <!-- Only the clicked card gets a view-transition name, so its art morphs into the detail hero. -->
@@ -50,9 +51,13 @@ import { TypeBadge } from '../../../shared/type-badge/type-badge';
 export class PokemonCard {
   readonly pokemon = input.required<PokemonSummary>();
 
+  private readonly labels = inject(LocalizedLabels);
+
   protected readonly imageFailed = signal(false);
   protected readonly label = computed(() => {
     const p = this.pokemon();
-    return [p.name, dexNumber(p.id), ...p.types.map((t) => t.name)].join(', ');
+    return [p.name, dexNumber(p.id), ...p.types.map((t) => this.labels.label('types', t))].join(
+      ', ',
+    );
   });
 }

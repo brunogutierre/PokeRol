@@ -33,7 +33,9 @@
     <select #type (change)="onType(type.value)">
       <option value="" [selected]="query().type === ''">{{ 'list.allTypes' | transloco }}</option>
       @for (t of types(); track t.key) {
-        <option [value]="t.key" [selected]="t.key === query().type">{{ t.name }}</option>
+        <option [value]="t.key" [selected]="t.key === query().type">
+          {{ t | localName: 'types' }}
+        </option>
       }
     </select>
   </label>

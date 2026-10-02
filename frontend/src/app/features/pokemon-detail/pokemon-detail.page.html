@@ -134,7 +134,7 @@
                   aria-hidden="true"
                   [style.background]="'var(--sc-' + color.key + ')'"
                 ></span>
-                {{ color.name }}
+                {{ color | localName: 'colors' }}
               } @else {
                 {{ 'detail.unknown' | transloco }}
               }
@@ -142,11 +142,23 @@
           </div>
           <div>
             <dt>{{ 'detail.shape' | transloco }}</dt>
-            <dd>{{ p.biology.shape?.name ?? ('detail.unknown' | transloco) }}</dd>
+            <dd>
+              {{
+                p.biology.shape
+                  ? (p.biology.shape | localName: 'shapes')
+                  : ('detail.unknown' | transloco)
+              }}
+            </dd>
           </div>
           <div>
             <dt>{{ 'detail.habitat' | transloco }}</dt>
-            <dd>{{ p.biology.habitat?.name ?? ('detail.unknown' | transloco) }}</dd>
+            <dd>
+              {{
+                p.biology.habitat
+                  ? (p.biology.habitat | localName: 'habitats')
+                  : ('detail.unknown' | transloco)
+              }}
+            </dd>
           </div>
         </dl>
       </section>
