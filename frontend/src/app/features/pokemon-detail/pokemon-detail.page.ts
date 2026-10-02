@@ -8,7 +8,7 @@ import {
   input,
   linkedSignal,
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { PokemonDetail } from '../../core/api/api.models';
 import { PokemonApi } from '../../core/api/pokemon-api';
@@ -19,6 +19,7 @@ import { RANDOM, randomInt } from '../../core/random';
 import { DexNumberPipe } from '../../shared/dex-number.pipe';
 import { Spinner } from '../../shared/spinner/spinner';
 import { StateMessage } from '../../shared/state-message/state-message';
+import { SwipeDirective } from '../../shared/swipe.directive';
 import { TypeBadge } from '../../shared/type-badge/type-badge';
 import NotFoundPage from '../not-found/not-found.page';
 import { EvolutionTree } from './evolution-tree/evolution-tree';
@@ -39,6 +40,7 @@ const ID_PATTERN = /^[1-9]\d{0,5}$/;
     NotFoundPage,
     StatBars,
     EvolutionTree,
+    SwipeDirective,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './pokemon-detail.page.html',
@@ -49,6 +51,7 @@ export default class PokemonDetailPage {
   readonly id = input<string>();
 
   private readonly random = inject(RANDOM);
+  private readonly router = inject(Router);
   protected readonly listState = inject(ListState);
 
   protected readonly pokemonId = computed(() => {
@@ -103,5 +106,12 @@ export default class PokemonDetailPage {
   /** Locale-aware number (0.7 in English, 0,7 in Portuguese/French/Spanish). */
   protected formatNumber(value: number): string {
     return this.numberFormat().format(value);
+  }
+
+  /** Swipe / arrow-key navigation to a neighbouring species. */
+  protected goTo(id: number | null): void {
+    if (id !== null) {
+      void this.router.navigate(['/pokemon', id]);
+    }
   }
 }

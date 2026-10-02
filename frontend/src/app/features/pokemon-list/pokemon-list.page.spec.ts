@@ -95,6 +95,23 @@ describe('PokemonListPage', () => {
     expectList('page=0&size=18&sort=number&dir=asc').flush(page());
   });
 
+  it('changes page with the arrow keys and shows the swipe hint once on touch screens', async () => {
+    const matchMedia = vi.fn().mockReturnValue({ matches: true });
+    vi.stubGlobal('matchMedia', matchMedia);
+    const { harness, el } = await open('/pokemon');
+    expectList('page=0&size=18&sort=number&dir=asc').flush(page({ totalPages: 3 }));
+    await harness.fixture.whenStable();
+    expect(el().querySelector('.swipe-hint')?.textContent).toContain('Swipe to change page');
+    expect(localStorage.getItem('pokerol.swipeHintSeen')).toBe('1');
+
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft' }));
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' }));
+    await settle();
+    expect(TestBed.inject(Router).url).toBe('/pokemon?page=1');
+    expectList('page=1&size=18&sort=number&dir=asc').flush(page({ page: 1, totalPages: 3 }));
+    vi.unstubAllGlobals();
+  });
+
   it('shows an empty state that clears the filters', async () => {
     const { harness, el } = await open('/pokemon?q=zzz&type=ice');
     expectList('page=0&size=18&sort=number&dir=asc&q=zzz&type=ice').flush(

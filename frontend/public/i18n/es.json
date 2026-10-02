@@ -56,7 +56,8 @@
     "page": "Página",
     "of": "de {{ total }}",
     "pageInput": "Número de página",
-    "status": "Página {{ page }} de {{ total }}"
+    "status": "Página {{ page }} de {{ total }}",
+    "swipeHint": "Desliza para cambiar de página"
   },
   "detail": {
     "back": "Volver a la lista",
