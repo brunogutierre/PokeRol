@@ -40,7 +40,16 @@
     (action)="result.reload()"
   />
 } @else if (pokemon(); as p) {
-  <article class="detail" [style.--species]="speciesColor()" [attr.aria-busy]="result.isLoading()">
+  <article
+    class="detail"
+    [style.--species]="speciesColor()"
+    [attr.aria-busy]="result.isLoading()"
+    appSwipe
+    [hasPrev]="p.prevId !== null"
+    [hasNext]="p.nextId !== null"
+    (swipeLeft)="goTo(p.nextId)"
+    (swipeRight)="goTo(p.prevId)"
+  >
     @if (result.isLoading()) {
       <div class="loading"><app-spinner /></div>
     }

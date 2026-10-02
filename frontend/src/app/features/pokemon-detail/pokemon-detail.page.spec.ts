@@ -2,7 +2,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { Title } from '@angular/platform-browser';
-import { TitleStrategy, provideRouter, withComponentInputBinding } from '@angular/router';
+import { Router, TitleStrategy, provideRouter, withComponentInputBinding } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
 import { API, detail } from '../../../testing/fixtures';
 import { provideTranslocoTesting } from '../../../testing/i18n';
@@ -178,6 +178,24 @@ describe('PokemonDetailPage', () => {
     await harness.fixture.whenStable();
     expect(el().querySelector('h1')?.textContent).toBe('Venusaur');
     expect(el().querySelector('.detail app-spinner')).toBeNull();
+  });
+
+  it('moves to the neighbours with the arrow keys', async () => {
+    const { harness } = await open('/pokemon/2');
+    expectDetail(2).flush(detail());
+    await harness.fixture.whenStable();
+
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft' }));
+    await settle();
+    expectDetail(1).flush(
+      detail({ id: 1, speciesId: 1, name: 'Bulbasaur', prevId: null, nextId: 2 }),
+    );
+    await harness.fixture.whenStable();
+    expect(TestBed.inject(Router).url).toBe('/pokemon/1');
+
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft' }));
+    await settle();
+    expect(TestBed.inject(Router).url).toBe('/pokemon/1');
   });
 
   it('shows the not-found view for a 404 and for invalid ids', async () => {

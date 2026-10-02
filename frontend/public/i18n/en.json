@@ -56,7 +56,8 @@
     "page": "Page",
     "of": "of {{ total }}",
     "pageInput": "Page number",
-    "status": "Page {{ page }} of {{ total }}"
+    "status": "Page {{ page }} of {{ total }}",
+    "swipeHint": "Swipe to change page"
   },
   "detail": {
     "back": "Back to list",

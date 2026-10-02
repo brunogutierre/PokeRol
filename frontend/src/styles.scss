@@ -52,6 +52,19 @@ summary {
   @include visually-hidden;
 }
 
+// Surfaces with SwipeDirective: vertical scrolling stays native; release springs back.
+.swipe-surface {
+  touch-action: pan-y;
+
+  @include motion {
+    transition: transform var(--dur-base) var(--ease-spring);
+
+    &.swiping {
+      transition: none;
+    }
+  }
+}
+
 // View transitions: a short cross-fade by default.
 @include motion {
   ::view-transition-old(root),

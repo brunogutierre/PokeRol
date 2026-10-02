@@ -48,3 +48,14 @@ li {
     transform: translateY(8px);
   }
 }
+
+.swipe-hint {
+  margin: 0;
+  color: var(--c-muted);
+  font-size: var(--fs-sm);
+  text-align: center;
+
+  @include up($bp-sm) {
+    display: none;
+  }
+}

@@ -25,26 +25,34 @@
     <p class="note">{{ 'list.degraded' | transloco }}</p>
   }
 
-  @if (result.isLoading()) {
-    <div class="grid" aria-busy="true">
-      <app-list-skeleton />
-    </div>
-  } @else if (items().length) {
-    <ul class="grid" role="list">
-      @for (pokemon of items(); track pokemon.id; let i = $index) {
-        <li [style.--i]="i">
-          <app-pokemon-card [pokemon]="pokemon" />
-        </li>
-      }
-    </ul>
-  } @else {
-    <app-state-message
-      [heading]="'list.emptyTitle' | transloco"
-      [text]="'list.emptyText' | transloco"
-      [actionLabel]="hasFilters() ? ('list.clearFilters' | transloco) : ''"
-      (action)="clearFilters()"
-    />
-  }
+  <div
+    appSwipe
+    [hasPrev]="query().page > 0"
+    [hasNext]="query().page < (lastPage()?.totalPages ?? 0) - 1"
+    (swipeLeft)="goToPage(query().page + 1)"
+    (swipeRight)="goToPage(query().page - 1)"
+  >
+    @if (result.isLoading()) {
+      <div class="grid" aria-busy="true">
+        <app-list-skeleton />
+      </div>
+    } @else if (items().length) {
+      <ul class="grid" role="list">
+        @for (pokemon of items(); track pokemon.id; let i = $index) {
+          <li [style.--i]="i">
+            <app-pokemon-card [pokemon]="pokemon" />
+          </li>
+        }
+      </ul>
+    } @else {
+      <app-state-message
+        [heading]="'list.emptyTitle' | transloco"
+        [text]="'list.emptyText' | transloco"
+        [actionLabel]="hasFilters() ? ('list.clearFilters' | transloco) : ''"
+        (action)="clearFilters()"
+      />
+    }
+  </div>
 
   @if (lastPage(); as p) {
     @if (p.totalPages > 1) {
@@ -53,6 +61,9 @@
         [totalPages]="p.totalPages"
         (pageChange)="goToPage($event)"
       />
+      @if (showSwipeHint) {
+        <p class="swipe-hint">{{ 'pagination.swipeHint' | transloco }}</p>
+      }
     }
   }
 }

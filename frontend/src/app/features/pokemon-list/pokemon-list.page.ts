@@ -1,4 +1,5 @@
 import {
+  DOCUMENT,
   ChangeDetectionStrategy,
   Component,
   computed,
@@ -13,11 +14,15 @@ import { PokemonPage } from '../../core/api/api.models';
 import { ListQuery, sanitizeListQuery, toQueryParams } from '../../core/api/list-query';
 import { PokemonApi } from '../../core/api/pokemon-api';
 import { ListState } from '../../core/list-state';
+import { LocalStorage } from '../../core/storage/local-storage';
+import { SwipeDirective } from '../../shared/swipe.directive';
 import { StateMessage } from '../../shared/state-message/state-message';
 import { ListSkeleton } from './list-skeleton/list-skeleton';
 import { ListToolbar } from './list-toolbar/list-toolbar';
 import { Pagination } from './pagination/pagination';
 import { PokemonCard } from './pokemon-card/pokemon-card';
+
+const SWIPE_HINT_KEY = 'pokerol.swipeHintSeen';
 
 /**
  * The Pokédex grid. Its state lives in the URL: query params arrive as inputs
@@ -25,7 +30,15 @@ import { PokemonCard } from './pokemon-card/pokemon-card';
  */
 @Component({
   selector: 'app-pokemon-list-page',
-  imports: [TranslocoPipe, StateMessage, ListSkeleton, ListToolbar, Pagination, PokemonCard],
+  imports: [
+    TranslocoPipe,
+    StateMessage,
+    ListSkeleton,
+    ListToolbar,
+    Pagination,
+    PokemonCard,
+    SwipeDirective,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './pokemon-list.page.html',
   styleUrl: './pokemon-list.page.scss',
@@ -63,6 +76,9 @@ export default class PokemonListPage {
   );
   protected readonly hasFilters = computed(() => this.query().q !== '' || this.query().type !== '');
 
+  /** "Swipe to change page" is shown once, on touch screens only. */
+  protected readonly showSwipeHint = this.consumeSwipeHint();
+
   constructor() {
     const listState = inject(ListState);
     effect(() => listState.remember(this.query()));
@@ -81,5 +97,15 @@ export default class PokemonListPage {
 
   protected clearFilters(): void {
     void this.router.navigate([], { queryParams: {} });
+  }
+
+  private consumeSwipeHint(): boolean {
+    const storage = inject(LocalStorage);
+    const touch = inject(DOCUMENT).defaultView?.matchMedia?.('(pointer: coarse)').matches ?? false;
+    if (!touch || storage.get(SWIPE_HINT_KEY)) {
+      return false;
+    }
+    storage.set(SWIPE_HINT_KEY, '1');
+    return true;
   }
 }
