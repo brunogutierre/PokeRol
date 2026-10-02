@@ -65,6 +65,17 @@
     "next": "Pokémon siguiente, {{ number }}",
     "artworkAlt": "Ilustración oficial de {{ name }}",
     "flavor": "Entrada de la Pokédex",
-    "fallbackLanguage": "Algunos datos solo están disponibles en inglés."
+    "fallbackLanguage": "Algunos datos solo están disponibles en inglés.",
+    "stats": "Estadísticas base",
+    "total": "Total",
+    "abilities": "Habilidades",
+    "hidden": "Oculta",
+    "biology": "Biología",
+    "height": "Altura",
+    "weight": "Peso",
+    "color": "Color",
+    "shape": "Forma",
+    "habitat": "Hábitat",
+    "unknown": "Desconocido"
   }
 }

@@ -12,6 +12,7 @@ import { RouterLink } from '@angular/router';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { PokemonDetail } from '../../core/api/api.models';
 import { PokemonApi } from '../../core/api/pokemon-api';
+import { LanguageService } from '../../core/i18n/language.service';
 import { TranslatedTitleStrategy } from '../../core/i18n/translated-title.strategy';
 import { ListState } from '../../core/list-state';
 import { RANDOM, randomInt } from '../../core/random';
@@ -20,6 +21,7 @@ import { Spinner } from '../../shared/spinner/spinner';
 import { StateMessage } from '../../shared/state-message/state-message';
 import { TypeBadge } from '../../shared/type-badge/type-badge';
 import NotFoundPage from '../not-found/not-found.page';
+import { StatBars } from './stat-bars/stat-bars';
 
 const ID_PATTERN = /^[1-9]\d{0,5}$/;
 
@@ -34,6 +36,7 @@ const ID_PATTERN = /^[1-9]\d{0,5}$/;
     StateMessage,
     TypeBadge,
     NotFoundPage,
+    StatBars,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './pokemon-detail.page.html',
@@ -80,6 +83,11 @@ export default class PokemonDetailPage {
     () => `var(--sc-${this.pokemon()?.biology.color?.key ?? 'gray'}, var(--sc-gray))`,
   );
 
+  private readonly language = inject(LanguageService);
+  private readonly numberFormat = computed(
+    () => new Intl.NumberFormat(this.language.lang(), { maximumFractionDigits: 1 }),
+  );
+
   constructor() {
     const title = inject(TranslatedTitleStrategy);
     effect(() => {
@@ -88,5 +96,10 @@ export default class PokemonDetailPage {
         title.setText(pokemon.name);
       }
     });
+  }
+
+  /** Locale-aware number (0.7 in English, 0,7 in Portuguese/French/Spanish). */
+  protected formatNumber(value: number): string {
+    return this.numberFormat().format(value);
   }
 }

@@ -65,6 +65,17 @@
     "next": "Next Pokémon, {{ number }}",
     "artworkAlt": "Official artwork of {{ name }}",
     "flavor": "Pokédex entry",
-    "fallbackLanguage": "Some data is only available in English."
+    "fallbackLanguage": "Some data is only available in English.",
+    "stats": "Base stats",
+    "total": "Total",
+    "abilities": "Abilities",
+    "hidden": "Hidden",
+    "biology": "Biology",
+    "height": "Height",
+    "weight": "Weight",
+    "color": "Color",
+    "shape": "Shape",
+    "habitat": "Habitat",
+    "unknown": "Unknown"
   }
 }

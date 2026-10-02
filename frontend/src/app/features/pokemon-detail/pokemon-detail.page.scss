@@ -225,3 +225,93 @@ h1 {
     opacity: 0;
   }
 }
+
+.card {
+  display: grid;
+  gap: var(--sp-4);
+  padding: var(--sp-5);
+  border-radius: var(--r-lg);
+  background: var(--c-surface);
+  box-shadow: var(--shadow-1);
+
+  h2 {
+    font-size: var(--fs-lg);
+  }
+}
+
+.abilities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+    min-height: 40px;
+    padding: var(--sp-1) var(--sp-3);
+    border: 1px solid transparent;
+    border-radius: var(--r-md);
+    background: var(--c-surface-2);
+    font-weight: 600;
+  }
+
+  .hidden {
+    border: 1px dashed var(--c-border-strong);
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+  }
+
+  .tag {
+    padding: 0 var(--sp-2);
+    border-radius: var(--r-pill);
+    background: var(--c-surface);
+    color: var(--c-muted);
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+}
+
+.biology {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: var(--sp-3);
+  margin: 0;
+
+  div {
+    padding: var(--sp-3);
+    border-radius: var(--r-md);
+    background: var(--c-surface-2);
+  }
+
+  dt {
+    color: var(--c-muted);
+    font-size: var(--fs-sm);
+  }
+
+  dd {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    margin: 0;
+    font-size: var(--fs-lg);
+  }
+
+  .swatch {
+    width: 12px;
+    height: 12px;
+    border: 1px solid var(--c-border-strong);
+    border-radius: 50%;
+  }
+}

@@ -82,6 +82,25 @@ describe('PokemonDetailPage', () => {
     expect(el().querySelector('blockquote')?.textContent).toBe('Second entry.');
   });
 
+  it('lists abilities, marking hidden ones, and localized biology', async () => {
+    localStorage.setItem('pokerol.lang', 'es');
+    const { harness, el } = await open('/pokemon/2');
+    http
+      .expectOne(`${API}/api/v1/pokemon/2?lang=es`)
+      .flush(detail({ biology: { ...detail().biology, heightM: 0.7 } }));
+    await harness.fixture.whenStable();
+
+    const abilities = Array.from(el().querySelectorAll('.abilities li'));
+    expect(abilities.map((li) => li.classList.contains('hidden'))).toEqual([false, true]);
+    expect(abilities[1].textContent).toContain('Oculta');
+
+    const values = Array.from(el().querySelectorAll('.biology dd')).map((dd) =>
+      dd.textContent?.trim(),
+    );
+    expect(values).toEqual(['0,7 m', '13 kg', 'Green', 'Quadruped', 'Desconocido']);
+    expect(el().querySelector('app-stat-bars')).not.toBeNull();
+  });
+
   it('notes when data fell back to English and hides empty optional parts', async () => {
     const { harness, el } = await open('/pokemon/2');
     expectDetail(2).flush(
@@ -91,6 +110,7 @@ describe('PokemonDetailPage', () => {
         flavorTexts: [],
         prevId: null,
         images: { dreamWorld: null, artwork: null, sprite: null },
+        biology: { heightM: 1, weightKg: 2, color: null, shape: null, habitat: null },
       }),
     );
     await harness.fixture.whenStable();
@@ -99,6 +119,8 @@ describe('PokemonDetailPage', () => {
     expect(el().querySelector('blockquote')).toBeNull();
     expect(el().querySelector('.hero img')).toBeNull();
     expect(el().querySelectorAll('.neighbours a')).toHaveLength(1);
+    expect(el().querySelector('.swatch')).toBeNull();
+    expect(el().querySelectorAll('.biology dd')[2].textContent?.trim()).toBe('Unknown');
   });
 
   it('links to neighbours and back to the remembered list', async () => {
