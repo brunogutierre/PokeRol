@@ -71,6 +71,51 @@ summary {
   ::view-transition-new(root) {
     animation-duration: var(--dur-base);
   }
+
+  // Prev / next (detail neighbours, list pages): slide 24px in the travel direction.
+  :root[data-nav-dir='next']::view-transition-old(root) {
+    animation: var(--dur-base) var(--ease-out) both slide-out-to-left;
+  }
+
+  :root[data-nav-dir='next']::view-transition-new(root) {
+    animation: var(--dur-base) var(--ease-out) both slide-in-from-right;
+  }
+
+  :root[data-nav-dir='prev']::view-transition-old(root) {
+    animation: var(--dur-base) var(--ease-out) both slide-out-to-right;
+  }
+
+  :root[data-nav-dir='prev']::view-transition-new(root) {
+    animation: var(--dur-base) var(--ease-out) both slide-in-from-left;
+  }
+}
+
+@keyframes slide-out-to-left {
+  to {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+}
+
+@keyframes slide-out-to-right {
+  to {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+}
+
+@keyframes slide-in-from-right {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+}
+
+@keyframes slide-in-from-left {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
