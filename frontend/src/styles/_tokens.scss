@@ -1,0 +1,71 @@
+// Design tokens ("Field Notebook"). Colors use light-dark(), so the theme is driven
+// only by `color-scheme` (system by default, forced via [data-theme] on <html>).
+:root {
+  color-scheme: light dark;
+
+  &[data-theme='light'] {
+    color-scheme: light;
+  }
+
+  &[data-theme='dark'] {
+    color-scheme: dark;
+  }
+
+  --c-bg: light-dark(#f6f7fb, #12141a);
+  --c-surface: light-dark(#ffffff, #1b1e27);
+  --c-surface-2: light-dark(#eef0f5, #242834);
+  --c-text: light-dark(#1a1d26, #e8eaf0);
+  --c-muted: light-dark(#5b6170, #a3a9b8);
+  --c-border: light-dark(#d5d9e2, #2e3342);
+  --c-border-strong: light-dark(#7b8494, #5a6072);
+  --c-primary: light-dark(#b42e2e, #ff6f61);
+  --c-primary-bg: light-dark(#d93a3a, #ff6f61);
+  --c-on-primary: light-dark(#ffffff, #12141a);
+  --c-accent: light-dark(#2f6feb, #7aa7ff);
+  --c-focus: light-dark(#2f6feb, #7aa7ff);
+  --c-warn-bg: light-dark(#fff4d6, #3a3010);
+  --c-warn-text: light-dark(#6b4e00, #ffd978);
+  --c-danger-text: light-dark(#b42e2e, #ff8a80);
+
+  --ff-display: 'Fredoka', system-ui, sans-serif;
+  --ff-body: 'Nunito Sans', system-ui, sans-serif;
+  --ff-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.25rem;
+  --fs-xl: clamp(1.5rem, 1.2rem + 1.5vw, 2rem);
+  --fs-2xl: clamp(2rem, 1.5rem + 2.5vw, 3rem);
+  --lh-tight: 1.2;
+  --lh-body: 1.55;
+
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 64px;
+
+  --r-sm: 6px;
+  --r-md: 12px;
+  --r-lg: 20px;
+  --r-pill: 999px;
+
+  --shadow-1: 0 1px 2px rgb(0 0 0 / 0.06), 0 1px 3px rgb(0 0 0 / 0.08);
+  --shadow-2: 0 4px 12px rgb(0 0 0 / 0.1), 0 2px 4px rgb(0 0 0 / 0.06);
+  --shadow-3: 0 12px 32px rgb(0 0 0 / 0.16);
+  --art-shadow: drop-shadow(0 12px 16px rgb(0 0 0 / 0.25));
+  --focus-ring: 0 0 0 2px var(--c-surface), 0 0 0 4px var(--c-focus);
+
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+  --dur-slow: 320ms;
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --container: 1200px;
+  --header-h: 56px;
+}

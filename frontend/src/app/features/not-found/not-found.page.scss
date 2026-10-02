@@ -1,0 +1,55 @@
+@use 'mixins' as *;
+
+.not-found {
+  display: grid;
+  justify-items: center;
+  gap: var(--sp-3);
+  max-width: 420px;
+  margin: var(--sp-7) auto;
+  text-align: center;
+}
+
+.code {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin: 0;
+  font-family: var(--ff-mono);
+  font-size: 6rem;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--c-muted);
+}
+
+.ball {
+  @include pokeball-outline(5rem, var(--c-primary));
+}
+
+h1 {
+  font-size: var(--fs-xl);
+}
+
+.text {
+  margin: 0;
+  color: var(--c-muted);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-3);
+  margin-top: var(--sp-3);
+}
+
+.primary {
+  @include primary-button;
+}
+
+.ghost {
+  @include ghost-button;
+  border-color: var(--c-border-strong);
+  border-radius: var(--r-pill);
+  padding-inline: var(--sp-5);
+  text-decoration: none;
+}

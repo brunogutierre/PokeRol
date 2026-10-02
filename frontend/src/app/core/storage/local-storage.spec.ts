@@ -1,0 +1,29 @@
+import { LocalStorage } from './local-storage';
+
+describe('LocalStorage', () => {
+  const storage = new LocalStorage();
+
+  afterEach(() => vi.restoreAllMocks());
+
+  it('reads, writes and removes values', () => {
+    storage.set('k', 'v');
+    expect(storage.get('k')).toBe('v');
+    storage.remove('k');
+    expect(storage.get('k')).toBeNull();
+  });
+
+  it('swallows storage errors', () => {
+    vi.spyOn(Storage.prototype, 'getItem').mockImplementation(() => {
+      throw new Error('blocked');
+    });
+    vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
+      throw new Error('blocked');
+    });
+    vi.spyOn(Storage.prototype, 'removeItem').mockImplementation(() => {
+      throw new Error('blocked');
+    });
+    expect(storage.get('k')).toBeNull();
+    expect(() => storage.set('k', 'v')).not.toThrow();
+    expect(() => storage.remove('k')).not.toThrow();
+  });
+});

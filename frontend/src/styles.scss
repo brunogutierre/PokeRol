@@ -1,1 +1,69 @@
-/* You can add global styles to this file, and also import other style files */
+@use 'tokens';
+@use 'palette';
+@use 'mixins' as *;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-padding-top: calc(var(--header-h) + 16px);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: var(--ff-body);
+  font-size: var(--fs-md);
+  line-height: var(--lh-body);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--ff-display);
+  font-weight: 600;
+  line-height: var(--lh-tight);
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  color: var(--c-accent);
+}
+
+a,
+button,
+input,
+select,
+summary {
+  @include focus-ring;
+}
+
+.visually-hidden {
+  @include visually-hidden;
+}
+
+// View transitions: a short cross-fade by default.
+@include motion {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: var(--dur-base);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
