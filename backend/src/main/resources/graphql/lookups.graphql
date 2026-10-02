@@ -1,0 +1,28 @@
+# Localized labels of the small reference tables. Types without any Pokémon
+# (unknown, shadow, stellar) are excluded by the `pokemontypes: {}` filter.
+query Lookups($languages: [String!]!) {
+  types: type(where: {pokemontypes: {}}, order_by: {id: asc}) {
+    name
+    names: typenames(where: {language: {name: {_in: $languages}}}) { name language { name } }
+  }
+  abilities: ability(order_by: {id: asc}) {
+    name
+    names: abilitynames(where: {language: {name: {_in: $languages}}}) { name language { name } }
+  }
+  stats: stat(order_by: {id: asc}) {
+    name
+    names: statnames(where: {language: {name: {_in: $languages}}}) { name language { name } }
+  }
+  colors: pokemoncolor(order_by: {id: asc}) {
+    name
+    names: pokemoncolornames(where: {language: {name: {_in: $languages}}}) { name language { name } }
+  }
+  shapes: pokemonshape(order_by: {id: asc}) {
+    name
+    names: pokemonshapenames(where: {language: {name: {_in: $languages}}}) { name language { name } }
+  }
+  habitats: pokemonhabitat(order_by: {id: asc}) {
+    name
+    names: pokemonhabitatnames(where: {language: {name: {_in: $languages}}}) { name language { name } }
+  }
+}
