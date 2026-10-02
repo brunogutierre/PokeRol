@@ -1,0 +1,34 @@
+# Claude Code configuration (never committed)
+.claude/
+CLAUDE.md
+CLAUDE.local.md
+
+# Local study manual (never committed)
+manual/
+
+# Backend (Maven)
+backend/target/
+backend/.mvn/wrapper/maven-wrapper.jar
+
+# Frontend (Node / Angular)
+node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/coverage/
+frontend/test-results/
+frontend/playwright-report/
+frontend/out-tsc/
+
+# IDEs and editors
+.idea/
+*.iml
+.vscode/*
+!.vscode/extensions.json
+.settings/
+.project
+.classpath
+
+# System files
+.DS_Store
+Thumbs.db
+*.log
