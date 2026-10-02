@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: pokerol-api
+  threads:
+    virtual:
+      # Blocking calls to PokeAPI park cheap virtual threads instead of platform threads.
+      enabled: true
+  mvc:
+    problemdetails:
+      enabled: true
+
+server:
+  # Render injects PORT; 8080 is the local default.
+  port: ${PORT:8080}
+  shutdown: graceful
+  compression:
+    enabled: true
+    mime-types: application/json,application/problem+json
+
+app:
+  cors:
+    allowed-origins: http://localhost:4200
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+      # The frontend pings /actuator/health to wake the free Render instance up.
+      cors:
+        allowed-origins: ${app.cors.allowed-origins}
+        allowed-methods: GET
+  endpoint:
+    health:
+      show-details: never
