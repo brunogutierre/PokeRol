@@ -1,0 +1,80 @@
+@use 'mixins' as *;
+
+:host {
+  display: block;
+
+  @include up($bp-md) {
+    position: sticky;
+    top: calc(var(--header-h) + var(--sp-2));
+    z-index: 5;
+  }
+}
+
+.toolbar {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  border-radius: var(--r-lg);
+  background: var(--c-surface);
+  box-shadow: var(--shadow-1);
+
+  @include up($bp-md) {
+    grid-template-columns: 1fr 200px 200px;
+  }
+}
+
+.search {
+  position: relative;
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+
+  @include up($bp-md) {
+    grid-column: auto;
+  }
+}
+
+input,
+select {
+  @include field;
+  width: 100%;
+}
+
+input {
+  padding-inline: calc(var(--sp-3) + 28px) 44px;
+
+  &::-webkit-search-cancel-button {
+    appearance: none;
+  }
+}
+
+select {
+  cursor: pointer;
+}
+
+.icon {
+  position: absolute;
+  left: var(--sp-3);
+  pointer-events: none;
+}
+
+.clear {
+  @include ghost-button;
+  position: absolute;
+  right: 0;
+  padding: 0;
+}
+
+svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.field {
+  display: block;
+}

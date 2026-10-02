@@ -35,7 +35,17 @@
     "degraded": "Some results may be missing right now. Please try again in a moment.",
     "emptyTitle": "No Pokémon found",
     "emptyText": "Try another name, number or type.",
-    "clearFilters": "Clear filters"
+    "clearFilters": "Clear filters",
+    "search": "Search Pokémon",
+    "searchPlaceholder": "Search by name or number",
+    "clearSearch": "Clear search",
+    "type": "Filter by type",
+    "allTypes": "All types",
+    "sort": "Sort by",
+    "sortNumberAsc": "No. ↑",
+    "sortNumberDesc": "No. ↓",
+    "sortNameAsc": "Name A–Z",
+    "sortNameDesc": "Name Z–A"
   },
   "pagination": {
     "label": "Pagination",
