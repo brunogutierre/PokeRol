@@ -1,6 +1,8 @@
 package com.brunogutierre.pokerol.config;
 
 import java.net.http.HttpClient;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import com.brunogutierre.pokerol.pokeapi.PokeApiGraphQlClient;
 import com.brunogutierre.pokerol.pokeapi.PokeApiRestClient;
@@ -23,6 +25,15 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(PokeApiProperties.class)
 public class PokeApiClientConfig {
+
+	/**
+	 * One cheap virtual thread per task, for background index loads and parallel PokeAPI calls.
+	 * Defining it makes Boot skip its own {@code applicationTaskExecutor}, which this app does not use.
+	 */
+	@Bean(destroyMethod = "close")
+	ExecutorService pokeApiExecutor() {
+		return Executors.newVirtualThreadPerTaskExecutor();
+	}
 
 	@Bean
 	PokeApiRestClient pokeApiRestClient(RestClient.Builder builder, PokeApiProperties properties) {
