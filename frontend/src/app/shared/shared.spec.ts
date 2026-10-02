@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { NamedKey } from '../core/api/api.models';
+import { provideTranslocoTesting } from '../../testing/i18n';
 import { DexNumberPipe, dexNumber } from './dex-number.pipe';
 import { StateMessage } from './state-message/state-message';
 import { TypeBadge } from './type-badge/type-badge';
@@ -23,6 +24,7 @@ class BadgeHost {
 
 describe('TypeBadge', () => {
   it('uses the type tokens and shows the localized name', async () => {
+    TestBed.configureTestingModule({ providers: [provideTranslocoTesting()] });
     const fixture = TestBed.createComponent(BadgeHost);
     await fixture.whenStable();
     const badge = (fixture.nativeElement as HTMLElement).querySelector(

@@ -45,7 +45,9 @@
     "sortNumberAsc": "N° ↑",
     "sortNumberDesc": "N° ↓",
     "sortNameAsc": "Nom A–Z",
-    "sortNameDesc": "Nom Z–A"
+    "sortNameDesc": "Nom Z–A",
+    "invalidTitle": "Ces filtres ne sont pas valides",
+    "invalidText": "Le lien est peut-être obsolète. Effacez les filtres pour voir tous les Pokémon."
   },
   "pagination": {
     "label": "Pagination",
@@ -87,5 +89,81 @@
   "wakeUp": {
     "waking": "Réveil du serveur… l'hébergement gratuit se met en veille quand il est inactif. Cela peut prendre environ une minute.",
     "connected": "Connecté"
+  },
+  "types": {
+    "normal": "Normal",
+    "fire": "Feu",
+    "water": "Eau",
+    "electric": "Électrik",
+    "grass": "Plante",
+    "ice": "Glace",
+    "fighting": "Combat",
+    "poison": "Poison",
+    "ground": "Sol",
+    "flying": "Vol",
+    "psychic": "Psy",
+    "bug": "Insecte",
+    "rock": "Roche",
+    "ghost": "Spectre",
+    "dragon": "Dragon",
+    "dark": "Ténèbres",
+    "steel": "Acier",
+    "fairy": "Fée",
+    "stellar": "Stellaire"
+  },
+  "stats": {
+    "hp": "Points de vie",
+    "attack": "Attaque",
+    "defense": "Défense",
+    "special-attack": "Attaque Spéciale",
+    "special-defense": "Défense Spéciale",
+    "speed": "Vitesse"
+  },
+  "statsShort": {
+    "hp": "PV",
+    "attack": "Atq",
+    "defense": "Déf",
+    "special-attack": "Atq. Spé",
+    "special-defense": "Déf. Spé",
+    "speed": "Vit"
+  },
+  "colors": {
+    "black": "Noir",
+    "blue": "Bleu",
+    "brown": "Marron",
+    "gray": "Gris",
+    "green": "Vert",
+    "pink": "Rose",
+    "purple": "Violet",
+    "red": "Rouge",
+    "white": "Blanc",
+    "yellow": "Jaune"
+  },
+  "shapes": {
+    "ball": "Boule",
+    "squiggle": "Serpentin",
+    "fish": "Poisson",
+    "arms": "Bras",
+    "blob": "Masse",
+    "upright": "Dressé",
+    "legs": "Jambes",
+    "quadruped": "Quadrupède",
+    "wings": "Ailes",
+    "tentacles": "Tentacules",
+    "heads": "Têtes",
+    "humanoid": "Humanoïde",
+    "bug-wings": "Ailes d'insecte",
+    "armor": "Armure"
+  },
+  "habitats": {
+    "cave": "Grotte",
+    "forest": "Forêt",
+    "grassland": "Prairie",
+    "mountain": "Montagne",
+    "rare": "Rare",
+    "rough-terrain": "Terrain accidenté",
+    "sea": "Mer",
+    "urban": "Urbain",
+    "waters-edge": "Bord de l'eau"
   }
 }

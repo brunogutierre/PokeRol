@@ -1,9 +1,11 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { NamedKey } from '../../core/api/api.models';
+import { LocalNamePipe } from '../../core/i18n/localized-labels';
 
 /** Type pill. Colors come from `--t-{key}` tokens; unknown types fall back to neutral. */
 @Component({
   selector: 'app-type-badge',
+  imports: [LocalNamePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '[class]': "'badge ' + size()",
@@ -13,7 +15,7 @@ import { NamedKey } from '../../core/api/api.models';
   template: `@if (dot()) {
       <span class="dot" aria-hidden="true"></span>
     }
-    {{ type().name }}`,
+    {{ type() | localName: 'types' }}`,
   styleUrl: './type-badge.scss',
 })
 export class TypeBadge {

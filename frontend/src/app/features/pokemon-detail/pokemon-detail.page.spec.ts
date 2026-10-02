@@ -97,7 +97,11 @@ describe('PokemonDetailPage', () => {
     const values = Array.from(el().querySelectorAll('.biology dd')).map((dd) =>
       dd.textContent?.trim(),
     );
-    expect(values).toEqual(['0,7 m', '13 kg', 'Green', 'Quadruped', 'Desconocido']);
+    expect(values).toEqual(['0,7 m', '13 kg', 'Verde', 'Cuadrúpedo', 'Desconocido']);
+    expect(el().querySelector('[role="meter"]')?.getAttribute('aria-label')).toBe(
+      'Puntos de salud',
+    );
+    expect(el().querySelector('app-type-badge')?.textContent?.trim()).toBe('Planta');
     expect(el().querySelector('app-stat-bars')).not.toBeNull();
   });
 

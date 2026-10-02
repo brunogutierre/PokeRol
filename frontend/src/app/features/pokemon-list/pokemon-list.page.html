@@ -6,7 +6,15 @@
   (queryChange)="navigate($event)"
 />
 
-@if (result.error()) {
+@if (invalidQuery()) {
+  <app-state-message
+    kind="error"
+    [heading]="'list.invalidTitle' | transloco"
+    [text]="'list.invalidText' | transloco"
+    [actionLabel]="'list.clearFilters' | transloco"
+    (action)="clearFilters()"
+  />
+} @else if (result.error()) {
   <app-state-message
     kind="error"
     [heading]="'state.errorTitle' | transloco"

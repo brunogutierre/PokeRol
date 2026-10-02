@@ -45,7 +45,9 @@
     "sortNumberAsc": "N.º ↑",
     "sortNumberDesc": "N.º ↓",
     "sortNameAsc": "Nombre A–Z",
-    "sortNameDesc": "Nombre Z–A"
+    "sortNameDesc": "Nombre Z–A",
+    "invalidTitle": "Estos filtros no son válidos",
+    "invalidText": "Puede que el enlace esté desactualizado. Borra los filtros para ver todos los Pokémon."
   },
   "pagination": {
     "label": "Paginación",
@@ -87,5 +89,81 @@
   "wakeUp": {
     "waking": "Despertando el servidor… el alojamiento gratuito se duerme cuando está inactivo. Puede tardar alrededor de un minuto.",
     "connected": "Conectado"
+  },
+  "types": {
+    "normal": "Normal",
+    "fire": "Fuego",
+    "water": "Agua",
+    "electric": "Eléctrico",
+    "grass": "Planta",
+    "ice": "Hielo",
+    "fighting": "Lucha",
+    "poison": "Veneno",
+    "ground": "Tierra",
+    "flying": "Volador",
+    "psychic": "Psíquico",
+    "bug": "Bicho",
+    "rock": "Roca",
+    "ghost": "Fantasma",
+    "dragon": "Dragón",
+    "dark": "Siniestro",
+    "steel": "Acero",
+    "fairy": "Hada",
+    "stellar": "Astral"
+  },
+  "stats": {
+    "hp": "Puntos de salud",
+    "attack": "Ataque",
+    "defense": "Defensa",
+    "special-attack": "Ataque Especial",
+    "special-defense": "Defensa Especial",
+    "speed": "Velocidad"
+  },
+  "statsShort": {
+    "hp": "PS",
+    "attack": "Atq",
+    "defense": "Def",
+    "special-attack": "At. Esp",
+    "special-defense": "Def. Esp",
+    "speed": "Vel"
+  },
+  "colors": {
+    "black": "Negro",
+    "blue": "Azul",
+    "brown": "Marrón",
+    "gray": "Gris",
+    "green": "Verde",
+    "pink": "Rosa",
+    "purple": "Morado",
+    "red": "Rojo",
+    "white": "Blanco",
+    "yellow": "Amarillo"
+  },
+  "shapes": {
+    "ball": "Bola",
+    "squiggle": "Serpentino",
+    "fish": "Pez",
+    "arms": "Brazos",
+    "blob": "Masa",
+    "upright": "Erguido",
+    "legs": "Piernas",
+    "quadruped": "Cuadrúpedo",
+    "wings": "Alas",
+    "tentacles": "Tentáculos",
+    "heads": "Cabezas",
+    "humanoid": "Humanoide",
+    "bug-wings": "Alas de insecto",
+    "armor": "Armadura"
+  },
+  "habitats": {
+    "cave": "Cueva",
+    "forest": "Bosque",
+    "grassland": "Pradera",
+    "mountain": "Montaña",
+    "rare": "Raro",
+    "rough-terrain": "Terreno agreste",
+    "sea": "Mar",
+    "urban": "Urbano",
+    "waters-edge": "Orilla del agua"
   }
 }

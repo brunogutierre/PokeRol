@@ -45,7 +45,9 @@
     "sortNumberAsc": "No. ↑",
     "sortNumberDesc": "No. ↓",
     "sortNameAsc": "Name A–Z",
-    "sortNameDesc": "Name Z–A"
+    "sortNameDesc": "Name Z–A",
+    "invalidTitle": "These filters are not valid",
+    "invalidText": "The link may be outdated. Clear the filters to see every Pokémon."
   },
   "pagination": {
     "label": "Pagination",
@@ -87,5 +89,81 @@
   "wakeUp": {
     "waking": "Waking up the server… free hosting sleeps when idle. This can take about a minute.",
     "connected": "Connected"
+  },
+  "types": {
+    "normal": "Normal",
+    "fire": "Fire",
+    "water": "Water",
+    "electric": "Electric",
+    "grass": "Grass",
+    "ice": "Ice",
+    "fighting": "Fighting",
+    "poison": "Poison",
+    "ground": "Ground",
+    "flying": "Flying",
+    "psychic": "Psychic",
+    "bug": "Bug",
+    "rock": "Rock",
+    "ghost": "Ghost",
+    "dragon": "Dragon",
+    "dark": "Dark",
+    "steel": "Steel",
+    "fairy": "Fairy",
+    "stellar": "Stellar"
+  },
+  "stats": {
+    "hp": "HP",
+    "attack": "Attack",
+    "defense": "Defense",
+    "special-attack": "Special Attack",
+    "special-defense": "Special Defense",
+    "speed": "Speed"
+  },
+  "statsShort": {
+    "hp": "HP",
+    "attack": "Atk",
+    "defense": "Def",
+    "special-attack": "Sp. Atk",
+    "special-defense": "Sp. Def",
+    "speed": "Speed"
+  },
+  "colors": {
+    "black": "Black",
+    "blue": "Blue",
+    "brown": "Brown",
+    "gray": "Gray",
+    "green": "Green",
+    "pink": "Pink",
+    "purple": "Purple",
+    "red": "Red",
+    "white": "White",
+    "yellow": "Yellow"
+  },
+  "shapes": {
+    "ball": "Ball",
+    "squiggle": "Squiggle",
+    "fish": "Fish",
+    "arms": "Arms",
+    "blob": "Blob",
+    "upright": "Upright",
+    "legs": "Legs",
+    "quadruped": "Quadruped",
+    "wings": "Wings",
+    "tentacles": "Tentacles",
+    "heads": "Heads",
+    "humanoid": "Humanoid",
+    "bug-wings": "Bug wings",
+    "armor": "Armor"
+  },
+  "habitats": {
+    "cave": "Cave",
+    "forest": "Forest",
+    "grassland": "Grassland",
+    "mountain": "Mountain",
+    "rare": "Rare",
+    "rough-terrain": "Rough terrain",
+    "sea": "Sea",
+    "urban": "Urban",
+    "waters-edge": "Water's edge"
   }
 }

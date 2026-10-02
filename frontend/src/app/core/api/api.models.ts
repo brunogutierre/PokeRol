@@ -13,7 +13,8 @@ export interface PokemonSummary {
   id: number;
   name: string;
   types: NamedKey[];
-  color: SpeciesColor | string;
+  /** Null in degraded mode. */
+  color: SpeciesColor | string | null;
   spriteUrl: string;
   abilities: string[];
 }

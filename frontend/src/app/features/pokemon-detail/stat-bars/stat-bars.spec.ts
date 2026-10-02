@@ -27,6 +27,8 @@ describe('StatBars', () => {
     const meters = Array.from(el.querySelectorAll('[role="meter"]'));
     expect(meters).toHaveLength(6);
     expect(meters[0].getAttribute('aria-label')).toBe('HP');
+    expect(meters[3].getAttribute('aria-label')).toBe('Special Attack');
+    expect(el.querySelectorAll('.label')[3].textContent).toBe('Sp. Atk');
     expect(meters[0].getAttribute('aria-valuenow')).toBe('60');
     expect(meters[0].getAttribute('aria-valuemax')).toBe('255');
     expect(meters[5].querySelector('.fill')?.classList).toContain('high');
