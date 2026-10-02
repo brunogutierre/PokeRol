@@ -1,6 +1,7 @@
 package com.brunogutierre.pokerol.web;
 
 import java.net.URI;
+import java.util.stream.Collectors;
 
 import com.brunogutierre.pokerol.pokeapi.PokeApiException;
 import org.slf4j.Logger;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.method.annotation.HandlerMethodValidationException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 /**
@@ -36,6 +38,20 @@ class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 			HttpStatusCode status, WebRequest request) {
 		var problem = ProblemDetail.forStatusAndDetail(status,
 				"Invalid value '%s' for parameter '%s'".formatted(ex.getValue(), ex.getPropertyName()));
+		return handleExceptionInternal(ex, problem, headers, status, request);
+	}
+
+	/** Constraint violations on query or path parameters, e.g. {@code ?size=500}. */
+	@Override
+	protected @Nullable ResponseEntity<Object> handleHandlerMethodValidationException(
+			HandlerMethodValidationException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+		var detail = ex.getParameterValidationResults()
+			.stream()
+			.flatMap(result -> result.getResolvableErrors()
+				.stream()
+				.map(error -> result.getMethodParameter().getParameterName() + ": " + error.getDefaultMessage()))
+			.collect(Collectors.joining("; "));
+		var problem = ProblemDetail.forStatusAndDetail(status, detail);
 		return handleExceptionInternal(ex, problem, headers, status, request);
 	}
 
