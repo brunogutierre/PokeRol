@@ -1,0 +1,63 @@
+@use 'mixins' as *;
+
+:host {
+  display: contents;
+}
+
+.card {
+  display: grid;
+  gap: var(--sp-2);
+  padding-bottom: var(--sp-3);
+  overflow: hidden;
+  border-radius: var(--r-lg);
+  background: var(--c-surface);
+  box-shadow: var(--shadow-1);
+}
+
+.art,
+.line,
+.pill {
+  background: var(--c-surface-2);
+
+  @include motion {
+    background: linear-gradient(
+        90deg,
+        transparent 0,
+        color-mix(in oklab, var(--c-surface) 60%, transparent) 50%,
+        transparent 100%
+      )
+      var(--c-surface-2);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s linear infinite;
+  }
+}
+
+.art {
+  aspect-ratio: 1;
+}
+
+.line,
+.pill {
+  height: 12px;
+  margin-inline: var(--sp-3);
+  border-radius: var(--r-pill);
+}
+
+.short {
+  width: 30%;
+}
+
+.pill {
+  width: 40%;
+  height: 18px;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 100% 0;
+  }
+
+  to {
+    background-position: -100% 0;
+  }
+}

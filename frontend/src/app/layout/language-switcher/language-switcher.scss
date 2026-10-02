@@ -18,6 +18,5 @@
 select {
   @include field;
   padding-left: calc(var(--sp-3) + 26px);
-  max-width: 11rem;
   cursor: pointer;
 }

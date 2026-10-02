@@ -41,11 +41,12 @@ $bp-lg: 1200px;
 }
 
 // Outline pokeball drawn with CSS only: ring, horizontal band and center button.
-@mixin pokeball-outline($size, $color: currentColor) {
+// `$border` must be a length (percentages are not valid for borders).
+@mixin pokeball-outline($size, $color: currentColor, $border: max(2px, calc($size * 0.07))) {
   width: $size;
   height: $size;
   border-radius: 50%;
-  border: max(2px, calc($size * 0.07)) solid $color;
+  border: $border solid $color;
   background:
     radial-gradient(circle, transparent 0 11%, $color 11% 19%, transparent 19%),
     linear-gradient(transparent 46%, $color 46% 54%, transparent 54%);

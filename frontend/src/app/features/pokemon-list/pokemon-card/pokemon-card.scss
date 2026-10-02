@@ -1,0 +1,99 @@
+@use 'mixins' as *;
+
+:host {
+  display: block;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border-top: 4px solid var(--species);
+  border-radius: var(--r-lg);
+  background: var(--c-surface);
+  box-shadow: var(--shadow-1);
+  color: var(--c-text);
+  text-decoration: none;
+
+  @include motion {
+    transition:
+      transform var(--dur-base) var(--ease-out),
+      box-shadow var(--dur-base) var(--ease-out);
+
+    &:hover,
+    &:focus-visible {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-2);
+    }
+
+    &:hover img,
+    &:focus-visible img {
+      animation: bob 600ms var(--ease-spring);
+    }
+  }
+
+  &:focus-visible {
+    box-shadow: var(--focus-ring);
+  }
+}
+
+.art {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  background: color-mix(in oklab, var(--species) 14%, var(--c-surface));
+
+  // Pokeball watermark.
+  &::before {
+    content: '';
+    position: absolute;
+    @include pokeball-outline(72%, var(--c-text), 10px);
+    opacity: 0.08;
+  }
+}
+
+img {
+  position: relative;
+  width: clamp(112px, 75%, 128px);
+  height: auto;
+  image-rendering: pixelated;
+}
+
+.fallback {
+  @include pokeball-outline(64px, var(--c-border-strong));
+}
+
+.body {
+  display: grid;
+  gap: var(--sp-1);
+  padding: var(--sp-3);
+}
+
+.number {
+  font-family: var(--ff-mono);
+  font-size: var(--fs-sm);
+  font-variant-numeric: tabular-nums;
+  color: var(--c-muted);
+}
+
+.name {
+  font-family: var(--ff-display);
+  font-size: var(--fs-md);
+  font-weight: 500;
+  line-height: var(--lh-tight);
+  overflow-wrap: anywhere;
+}
+
+.types {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-1);
+}
+
+@keyframes bob {
+  50% {
+    transform: translateY(-6px);
+  }
+}

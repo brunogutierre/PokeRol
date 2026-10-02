@@ -1,0 +1,35 @@
+@use 'mixins' as *;
+
+:host {
+  display: grid;
+  justify-items: center;
+  gap: var(--sp-3);
+  max-width: 360px;
+  margin: var(--sp-7) auto;
+  text-align: center;
+}
+
+.ball {
+  @include pokeball-outline(96px, var(--c-border-strong));
+}
+
+h2 {
+  font-size: var(--fs-lg);
+  font-weight: 500;
+}
+
+p {
+  margin: 0;
+  color: var(--c-muted);
+}
+
+.primary {
+  @include primary-button;
+}
+
+.ghost {
+  @include ghost-button;
+  border-color: var(--c-border-strong);
+  border-radius: var(--r-pill);
+  padding-inline: var(--sp-5);
+}
