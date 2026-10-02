@@ -10,7 +10,8 @@
     "test:watch": "ng test",
     "lint": "ng lint",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "e2e": "tsc -p e2e/tsconfig.json && playwright test"
   },
   "private": true,
   "packageManager": "npm@11.17.0",
@@ -32,7 +33,10 @@
     "@angular/build": "^22.2.1",
     "@angular/cli": "^22.0.6",
     "@angular/compiler-cli": "^22.0.0",
+    "@axe-core/playwright": "^4.13.0",
     "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^24.19.1",
     "@vitest/coverage-v8": "^5.0.3",
     "angular-eslint": "22.5.0",
     "eslint": "^10.9.1",
