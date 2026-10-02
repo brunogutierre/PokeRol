@@ -1,0 +1,93 @@
+<div class="topbar">
+  <a class="back" routerLink="/pokemon" [queryParams]="listState.queryParams()">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6" /></svg>
+    {{ 'detail.back' | transloco }}
+  </a>
+  @if (pokemon(); as p) {
+    <nav class="neighbours" [attr.aria-label]="'detail.neighbours' | transloco">
+      @if (p.prevId; as prev) {
+        <a
+          class="pill"
+          [routerLink]="['/pokemon', prev]"
+          [attr.aria-label]="'detail.prev' | transloco: { number: (prev | dexNumber) }"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6" /></svg>
+          {{ prev | dexNumber }}
+        </a>
+      }
+      @if (p.nextId; as next) {
+        <a
+          class="pill"
+          [routerLink]="['/pokemon', next]"
+          [attr.aria-label]="'detail.next' | transloco: { number: (next | dexNumber) }"
+        >
+          {{ next | dexNumber }}
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6" /></svg>
+        </a>
+      }
+    </nav>
+  }
+</div>
+
+@if (notFound()) {
+  <app-not-found-page />
+} @else if (result.error()) {
+  <app-state-message
+    kind="error"
+    [heading]="'state.errorTitle' | transloco"
+    [text]="'state.errorText' | transloco"
+    [actionLabel]="'state.retry' | transloco"
+    (action)="result.reload()"
+  />
+} @else if (pokemon(); as p) {
+  <article class="detail" [style.--species]="speciesColor()" [attr.aria-busy]="result.isLoading()">
+    @if (result.isLoading()) {
+      <div class="loading"><app-spinner /></div>
+    }
+
+    <section class="intro">
+      <div class="hero">
+        @if (image(); as src) {
+          <img
+            [src]="src"
+            [alt]="'detail.artworkAlt' | transloco: { name: p.name }"
+            width="320"
+            height="320"
+            [style.view-transition-name]="'poke-' + p.speciesId"
+          />
+        }
+      </div>
+      <p class="number">{{ p.speciesId | dexNumber }}</p>
+      <h1>{{ p.name }}</h1>
+      @if (p.genus) {
+        <p class="genus">{{ p.genus }}</p>
+      }
+      <div class="types">
+        @for (type of p.types; track type.key) {
+          <app-type-badge [type]="type" size="md" [dot]="true" />
+        }
+      </div>
+      @if (p.fallbackLanguage) {
+        <p class="note">{{ 'detail.fallbackLanguage' | transloco }}</p>
+      }
+      @if (flavorText(); as text) {
+        <figure class="flavor">
+          <blockquote>{{ text }}</blockquote>
+          <figcaption class="visually-hidden">{{ 'detail.flavor' | transloco }}</figcaption>
+        </figure>
+      }
+    </section>
+
+    <div class="facts"></div>
+  </article>
+} @else {
+  <div class="skeleton" aria-busy="true">
+    <div class="hero-skeleton" aria-hidden="true"></div>
+    <div class="tracks" aria-hidden="true">
+      @for (i of [1, 2, 3, 4, 5, 6]; track i) {
+        <span></span>
+      }
+    </div>
+    <app-spinner />
+  </div>
+}

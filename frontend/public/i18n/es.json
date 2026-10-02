@@ -57,5 +57,14 @@
     "of": "de {{ total }}",
     "pageInput": "Número de página",
     "status": "Página {{ page }} de {{ total }}"
+  },
+  "detail": {
+    "back": "Volver a la lista",
+    "neighbours": "Pokémon vecinos",
+    "prev": "Pokémon anterior, {{ number }}",
+    "next": "Pokémon siguiente, {{ number }}",
+    "artworkAlt": "Ilustración oficial de {{ name }}",
+    "flavor": "Entrada de la Pokédex",
+    "fallbackLanguage": "Algunos datos solo están disponibles en inglés."
   }
 }

@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  effect,
   inject,
   input,
   linkedSignal,
@@ -11,6 +12,7 @@ import { TranslocoPipe } from '@jsverse/transloco';
 import { PokemonPage } from '../../core/api/api.models';
 import { ListQuery, sanitizeListQuery, toQueryParams } from '../../core/api/list-query';
 import { PokemonApi } from '../../core/api/pokemon-api';
+import { ListState } from '../../core/list-state';
 import { StateMessage } from '../../shared/state-message/state-message';
 import { ListSkeleton } from './list-skeleton/list-skeleton';
 import { ListToolbar } from './list-toolbar/list-toolbar';
@@ -60,6 +62,11 @@ export default class PokemonListPage {
     this.result.hasValue() ? this.result.value().items : [],
   );
   protected readonly hasFilters = computed(() => this.query().q !== '' || this.query().type !== '');
+
+  constructor() {
+    const listState = inject(ListState);
+    effect(() => listState.remember(this.query()));
+  }
 
   protected navigate(changes: Partial<ListQuery>): void {
     void this.router.navigate([], {
