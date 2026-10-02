@@ -101,6 +101,41 @@ describe('PokemonDetailPage', () => {
     expect(el().querySelector('app-stat-bars')).not.toBeNull();
   });
 
+  it('shows the evolution chain and the forms', async () => {
+    const { harness, el } = await open('/pokemon/2');
+    expectDetail(2).flush(
+      detail({
+        varieties: [
+          { pokemonId: 2, name: 'Ivysaur', isDefault: true, spriteUrl: 'a.png' },
+          { pokemonId: 10033, name: 'Mega Ivysaur', isDefault: false, spriteUrl: 'b.png' },
+        ],
+      }),
+    );
+    await harness.fixture.whenStable();
+
+    expect(el().querySelector('.tree')?.getAttribute('aria-label')).toBe('Evolution chain');
+    expect(el().querySelectorAll('app-evolution-tree')).toHaveLength(3);
+    const forms = Array.from(el().querySelectorAll<HTMLAnchorElement>('.varieties a'));
+    expect(forms.map((a) => a.getAttribute('href'))).toEqual(['/pokemon/2', '/pokemon/10033']);
+    expect(forms[0].getAttribute('aria-current')).toBe('page');
+    expect(forms[0].textContent).toContain('Default');
+  });
+
+  it('explains when a Pokémon does not evolve and hides a single form', async () => {
+    const { harness, el } = await open('/pokemon/2');
+    expectDetail(2).flush(
+      detail({ evolution: { id: 2, name: 'Ivysaur', spriteUrl: '', children: [] } }),
+    );
+    await harness.fixture.whenStable();
+    expect(el().textContent).toContain('This Pokémon does not evolve.');
+    expect(el().querySelector('.varieties')).toBeNull();
+
+    await harness.navigateByUrl('/pokemon/5');
+    expectDetail(5).flush(detail({ id: 5, speciesId: 5, evolution: null }));
+    await harness.fixture.whenStable();
+    expect(el().textContent).toContain('This Pokémon does not evolve.');
+  });
+
   it('notes when data fell back to English and hides empty optional parts', async () => {
     const { harness, el } = await open('/pokemon/2');
     expectDetail(2).flush(

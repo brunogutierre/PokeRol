@@ -142,6 +142,45 @@
         </dl>
       </section>
     </div>
+
+    <section class="card wide" aria-labelledby="evolution-heading">
+      <h2 id="evolution-heading">{{ 'detail.evolution' | transloco }}</h2>
+      @if (p.evolution; as root) {
+        @if (root.children.length) {
+          <div class="evolution">
+            <ul class="tree" [attr.aria-label]="'detail.evolutionChain' | transloco">
+              <li><app-evolution-tree [node]="root" [currentId]="p.speciesId" /></li>
+            </ul>
+          </div>
+        } @else {
+          <p class="muted">{{ 'detail.noEvolution' | transloco }}</p>
+        }
+      } @else {
+        <p class="muted">{{ 'detail.noEvolution' | transloco }}</p>
+      }
+    </section>
+
+    @if (p.varieties.length > 1) {
+      <section class="card wide" aria-labelledby="varieties-heading">
+        <h2 id="varieties-heading">{{ 'detail.varieties' | transloco }}</h2>
+        <ul class="varieties" role="list">
+          @for (variety of p.varieties; track variety.pokemonId) {
+            <li>
+              <a
+                [routerLink]="['/pokemon', variety.pokemonId]"
+                [attr.aria-current]="variety.pokemonId === p.id ? 'page' : null"
+              >
+                <img [src]="variety.spriteUrl" alt="" width="72" height="72" loading="lazy" />
+                <span>{{ variety.name }}</span>
+                @if (variety.isDefault) {
+                  <span class="tag">{{ 'detail.default' | transloco }}</span>
+                }
+              </a>
+            </li>
+          }
+        </ul>
+      </section>
+    }
   </article>
 } @else {
   <div class="skeleton" aria-busy="true">

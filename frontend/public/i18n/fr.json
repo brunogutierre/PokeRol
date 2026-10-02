@@ -76,6 +76,11 @@
     "color": "Couleur",
     "shape": "Forme",
     "habitat": "Habitat",
-    "unknown": "Inconnu"
+    "unknown": "Inconnu",
+    "evolution": "Évolution",
+    "evolutionChain": "Chaîne d'évolution",
+    "noEvolution": "Ce Pokémon n'évolue pas.",
+    "varieties": "Formes",
+    "default": "Par défaut"
   }
 }

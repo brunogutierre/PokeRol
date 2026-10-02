@@ -5,7 +5,7 @@ import { PokemonCard } from './pokemon-card';
 
 describe('PokemonCard', () => {
   async function render() {
-    TestBed.configureTestingModule({ providers: [provideRouter([])] });
+    TestBed.configureTestingModule({ providers: [provideRouter([{ path: '**', children: [] }])] });
     const fixture = TestBed.createComponent(PokemonCard);
     fixture.componentRef.setInput('pokemon', page().items[0]);
     await fixture.whenStable();
@@ -19,6 +19,14 @@ describe('PokemonCard', () => {
     expect(link.getAttribute('aria-label')).toBe('Bulbasaur, #001, Grass, Poison');
     expect(link.style.getPropertyValue('--species')).toBe('var(--sc-green, var(--sc-gray))');
     expect(el.querySelectorAll('app-type-badge')).toHaveLength(2);
+  });
+
+  it('names only the clicked card for the view transition', async () => {
+    const { el } = await render();
+    const art = el.querySelector<HTMLElement>('.art')!;
+    expect(art.style.viewTransitionName).toBe('');
+    el.querySelector('a')!.dispatchEvent(new MouseEvent('click', { cancelable: true }));
+    expect(art.style.viewTransitionName).toBe('poke-1');
   });
 
   it('renders a lazy decorative sprite and falls back to a pokeball on error', async () => {

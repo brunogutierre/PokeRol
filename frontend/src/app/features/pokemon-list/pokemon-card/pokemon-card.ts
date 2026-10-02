@@ -16,8 +16,10 @@ import { TypeBadge } from '../../../shared/type-badge/type-badge';
       [routerLink]="['/pokemon', p.id]"
       [attr.aria-label]="label()"
       [style.--species]="'var(--sc-' + p.color + ', var(--sc-gray))'"
+      (click)="art.style.viewTransitionName = 'poke-' + p.id"
     >
-      <span class="art">
+      <!-- Only the clicked card gets a view-transition name, so its art morphs into the detail hero. -->
+      <span class="art" #art>
         @if (imageFailed() || !p.spriteUrl) {
           <span class="fallback" aria-hidden="true"></span>
         } @else {

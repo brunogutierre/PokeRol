@@ -21,6 +21,7 @@ import { Spinner } from '../../shared/spinner/spinner';
 import { StateMessage } from '../../shared/state-message/state-message';
 import { TypeBadge } from '../../shared/type-badge/type-badge';
 import NotFoundPage from '../not-found/not-found.page';
+import { EvolutionTree } from './evolution-tree/evolution-tree';
 import { StatBars } from './stat-bars/stat-bars';
 
 const ID_PATTERN = /^[1-9]\d{0,5}$/;
@@ -37,6 +38,7 @@ const ID_PATTERN = /^[1-9]\d{0,5}$/;
     TypeBadge,
     NotFoundPage,
     StatBars,
+    EvolutionTree,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './pokemon-detail.page.html',
