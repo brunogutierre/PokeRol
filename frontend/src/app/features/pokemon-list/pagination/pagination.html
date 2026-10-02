@@ -1,0 +1,56 @@
+<nav [attr.aria-label]="'pagination.label' | transloco">
+  <button
+    type="button"
+    class="edge"
+    [attr.aria-label]="'pagination.first' | transloco"
+    [attr.aria-disabled]="isFirst()"
+    (click)="go(0)"
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 18l-6-6 6-6M7 6v12" /></svg>
+  </button>
+  <button
+    type="button"
+    [attr.aria-label]="'pagination.prev' | transloco"
+    [attr.aria-disabled]="isFirst()"
+    (click)="go(page() - 1)"
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6" /></svg>
+  </button>
+
+  <label class="status">
+    <span>{{ 'pagination.page' | transloco }}</span>
+    <input
+      type="number"
+      inputmode="numeric"
+      min="1"
+      [max]="totalPages()"
+      [value]="current()"
+      [attr.aria-label]="'pagination.pageInput' | transloco"
+      (keydown.enter)="commit(pageInput)"
+      (blur)="pageInput.value = '' + current()"
+      #pageInput
+    />
+    <span>{{ 'pagination.of' | transloco: { total: totalPages() } }}</span>
+  </label>
+
+  <button
+    type="button"
+    [attr.aria-label]="'pagination.next' | transloco"
+    [attr.aria-disabled]="isLast()"
+    (click)="go(page() + 1)"
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6" /></svg>
+  </button>
+  <button
+    type="button"
+    class="edge"
+    [attr.aria-label]="'pagination.last' | transloco"
+    [attr.aria-disabled]="isLast()"
+    (click)="go(totalPages() - 1)"
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18l6-6-6-6M17 6v12" /></svg>
+  </button>
+</nav>
+<p class="visually-hidden" aria-live="polite">
+  {{ 'pagination.status' | transloco: { page: current(), total: totalPages() } }}
+</p>

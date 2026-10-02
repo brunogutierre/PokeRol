@@ -1,0 +1,52 @@
+<h1 class="visually-hidden">{{ 'list.heading' | transloco }}</h1>
+
+@if (result.error()) {
+  <app-state-message
+    kind="error"
+    [heading]="'state.errorTitle' | transloco"
+    [text]="'state.errorText' | transloco"
+    [actionLabel]="'state.retry' | transloco"
+    (action)="result.reload()"
+  />
+} @else {
+  <p class="count" aria-live="polite">
+    @if (lastPage(); as p) {
+      {{ 'list.results' | transloco: { count: p.totalItems } }}
+    }
+  </p>
+
+  @if (lastPage()?.degraded) {
+    <p class="note">{{ 'list.degraded' | transloco }}</p>
+  }
+
+  @if (result.isLoading()) {
+    <div class="grid" aria-busy="true">
+      <app-list-skeleton />
+    </div>
+  } @else if (items().length) {
+    <ul class="grid" role="list">
+      @for (pokemon of items(); track pokemon.id; let i = $index) {
+        <li [style.--i]="i">
+          <app-pokemon-card [pokemon]="pokemon" />
+        </li>
+      }
+    </ul>
+  } @else {
+    <app-state-message
+      [heading]="'list.emptyTitle' | transloco"
+      [text]="'list.emptyText' | transloco"
+      [actionLabel]="hasFilters() ? ('list.clearFilters' | transloco) : ''"
+      (action)="clearFilters()"
+    />
+  }
+
+  @if (lastPage(); as p) {
+    @if (p.totalPages > 1) {
+      <app-pagination
+        [page]="query().page"
+        [totalPages]="p.totalPages"
+        (pageChange)="goToPage($event)"
+      />
+    }
+  }
+}

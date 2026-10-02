@@ -28,5 +28,24 @@
     "text": "No encontramos lo que buscabas.",
     "back": "Volver a la Pokédex",
     "random": "Pokémon aleatorio"
+  },
+  "list": {
+    "heading": "Pokédex",
+    "results": "{{ count }} Pokémon",
+    "degraded": "Puede que falten algunos resultados ahora. Inténtalo de nuevo en un momento.",
+    "emptyTitle": "No se encontraron Pokémon",
+    "emptyText": "Prueba con otro nombre, número o tipo.",
+    "clearFilters": "Borrar filtros"
+  },
+  "pagination": {
+    "label": "Paginación",
+    "first": "Primera página",
+    "prev": "Página anterior",
+    "next": "Página siguiente",
+    "last": "Última página",
+    "page": "Página",
+    "of": "de {{ total }}",
+    "pageInput": "Número de página",
+    "status": "Página {{ page }} de {{ total }}"
   }
 }
