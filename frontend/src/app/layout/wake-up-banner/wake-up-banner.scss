@@ -1,0 +1,78 @@
+@use 'mixins' as *;
+
+:host {
+  display: block;
+}
+
+.banner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  overflow: hidden;
+  background: var(--c-warn-bg);
+  color: var(--c-warn-text);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-align: center;
+
+  &.waking,
+  &.connected {
+    padding: var(--sp-2) var(--sp-4);
+  }
+
+  &.idle {
+    height: 0;
+  }
+}
+
+.ball {
+  @include pokeball-outline(16px, currentColor, 2px);
+  flex: none;
+
+  @include motion {
+    animation: spin 1s linear infinite;
+  }
+}
+
+svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+// Indeterminate progress line along the bottom edge.
+.progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 30%;
+  height: 3px;
+  background: currentColor;
+  opacity: 0.5;
+
+  @include motion {
+    animation: slide 1.6s var(--ease-out) infinite;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes slide {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(340%);
+  }
+}
