@@ -1,0 +1,32 @@
+{
+  "app": {
+    "skipLink": "Pular para o conteúdo",
+    "home": "PokeRol, ir para a Pokédex"
+  },
+  "titles": {
+    "list": "Pokédex",
+    "detail": "Pokémon",
+    "notFound": "Página não encontrada"
+  },
+  "language": {
+    "label": "Idioma"
+  },
+  "theme": {
+    "label": "Tema: {{ mode }}",
+    "light": "Claro",
+    "dark": "Escuro",
+    "system": "Sistema"
+  },
+  "state": {
+    "loading": "Carregando…",
+    "errorTitle": "Algo deu errado",
+    "errorText": "Não foi possível carregar os dados. Verifique sua conexão e tente novamente.",
+    "retry": "Tentar novamente"
+  },
+  "notFound": {
+    "title": "Este Pokémon fugiu!",
+    "text": "Não encontramos o que você procurava.",
+    "back": "Voltar à Pokédex",
+    "random": "Pokémon aleatório"
+  }
+}
