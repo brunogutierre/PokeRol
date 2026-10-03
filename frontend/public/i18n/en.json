@@ -1,0 +1,169 @@
+{
+  "app": {
+    "skipLink": "Skip to content",
+    "home": "PokeRol, go to the Pokédex"
+  },
+  "titles": {
+    "list": "Pokédex",
+    "detail": "Pokémon",
+    "notFound": "Page not found"
+  },
+  "language": {
+    "label": "Language"
+  },
+  "theme": {
+    "label": "Theme: {{ mode }}",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "state": {
+    "loading": "Loading…",
+    "errorTitle": "Something went wrong",
+    "errorText": "We couldn't load the data. Check your connection and try again.",
+    "retry": "Try again"
+  },
+  "notFound": {
+    "title": "This Pokémon fled!",
+    "text": "We couldn't find what you were looking for.",
+    "back": "Back to Pokédex",
+    "random": "Random Pokémon"
+  },
+  "list": {
+    "heading": "Pokédex",
+    "results": "{{ count }} Pokémon",
+    "degraded": "Some results may be missing right now. Please try again in a moment.",
+    "emptyTitle": "No Pokémon found",
+    "emptyText": "Try another name, number or type.",
+    "clearFilters": "Clear filters",
+    "search": "Search Pokémon",
+    "searchPlaceholder": "Search by name or number",
+    "clearSearch": "Clear search",
+    "type": "Filter by type",
+    "allTypes": "All types",
+    "sort": "Sort by",
+    "sortNumberAsc": "No. ↑",
+    "sortNumberDesc": "No. ↓",
+    "sortNameAsc": "Name A–Z",
+    "sortNameDesc": "Name Z–A",
+    "invalidTitle": "These filters are not valid",
+    "invalidText": "The link may be outdated. Clear the filters to see every Pokémon."
+  },
+  "pagination": {
+    "label": "Pagination",
+    "first": "First page",
+    "prev": "Previous page",
+    "next": "Next page",
+    "last": "Last page",
+    "page": "Page",
+    "of": "of {{ total }}",
+    "pageInput": "Page number",
+    "status": "Page {{ page }} of {{ total }}",
+    "swipeHint": "Swipe to change page"
+  },
+  "detail": {
+    "back": "Back to list",
+    "neighbours": "Neighbouring Pokémon",
+    "prev": "Previous Pokémon, {{ number }}",
+    "next": "Next Pokémon, {{ number }}",
+    "artworkAlt": "Official artwork of {{ name }}",
+    "flavor": "Pokédex entry",
+    "fallbackLanguage": "Some data is only available in English.",
+    "stats": "Base stats",
+    "total": "Total",
+    "abilities": "Abilities",
+    "hidden": "Hidden",
+    "biology": "Biology",
+    "height": "Height",
+    "weight": "Weight",
+    "color": "Color",
+    "shape": "Shape",
+    "habitat": "Habitat",
+    "unknown": "Unknown",
+    "evolution": "Evolution",
+    "evolutionChain": "Evolution chain",
+    "noEvolution": "This Pokémon does not evolve.",
+    "varieties": "Forms",
+    "default": "Default"
+  },
+  "wakeUp": {
+    "waking": "Waking up the server… free hosting sleeps when idle. This can take about a minute.",
+    "connected": "Connected"
+  },
+  "types": {
+    "normal": "Normal",
+    "fire": "Fire",
+    "water": "Water",
+    "electric": "Electric",
+    "grass": "Grass",
+    "ice": "Ice",
+    "fighting": "Fighting",
+    "poison": "Poison",
+    "ground": "Ground",
+    "flying": "Flying",
+    "psychic": "Psychic",
+    "bug": "Bug",
+    "rock": "Rock",
+    "ghost": "Ghost",
+    "dragon": "Dragon",
+    "dark": "Dark",
+    "steel": "Steel",
+    "fairy": "Fairy",
+    "stellar": "Stellar"
+  },
+  "stats": {
+    "hp": "HP",
+    "attack": "Attack",
+    "defense": "Defense",
+    "special-attack": "Special Attack",
+    "special-defense": "Special Defense",
+    "speed": "Speed"
+  },
+  "statsShort": {
+    "hp": "HP",
+    "attack": "Atk",
+    "defense": "Def",
+    "special-attack": "Sp. Atk",
+    "special-defense": "Sp. Def",
+    "speed": "Speed"
+  },
+  "colors": {
+    "black": "Black",
+    "blue": "Blue",
+    "brown": "Brown",
+    "gray": "Gray",
+    "green": "Green",
+    "pink": "Pink",
+    "purple": "Purple",
+    "red": "Red",
+    "white": "White",
+    "yellow": "Yellow"
+  },
+  "shapes": {
+    "ball": "Ball",
+    "squiggle": "Squiggle",
+    "fish": "Fish",
+    "arms": "Arms",
+    "blob": "Blob",
+    "upright": "Upright",
+    "legs": "Legs",
+    "quadruped": "Quadruped",
+    "wings": "Wings",
+    "tentacles": "Tentacles",
+    "heads": "Heads",
+    "humanoid": "Humanoid",
+    "bug-wings": "Bug wings",
+    "armor": "Armor"
+  },
+  "habitats": {
+    "cave": "Cave",
+    "forest": "Forest",
+    "grassland": "Grassland",
+    "mountain": "Mountain",
+    "rare": "Rare",
+    "rough-terrain": "Rough terrain",
+    "sea": "Sea",
+    "urban": "Urban",
+    "waters-edge": "Water's edge"
+  }
+}

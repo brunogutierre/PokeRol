@@ -1,0 +1,53 @@
+# Render Blueprint: https://render.com/docs/blueprint-spec
+# Both services deploy from this monorepo; build filters keep frontend changes from
+# redeploying the API and vice versa.
+services:
+  - name: pokerol-api
+    type: web
+    runtime: docker
+    plan: free
+    rootDir: backend
+    # Relative to rootDir.
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /actuator/health
+    autoDeployTrigger: commit
+    buildFilter:
+      # Relative to the repository root.
+      paths:
+        - backend/**
+    envVars:
+      - key: APP_CORS_ALLOWED_ORIGINS
+        value: https://pokerol.onrender.com,http://localhost:4200
+      # Small footprint for the 512 MB free instance: serial GC, heap capped at 70% of
+      # the container memory, smaller thread stacks and code cache, C1 only (faster warm-up).
+      - key: JAVA_TOOL_OPTIONS
+        value: -XX:+UseSerialGC -XX:MaxRAMPercentage=70 -Xss512k -XX:ReservedCodeCacheSize=48m -XX:TieredStopAtLevel=1
+
+  - name: pokerol
+    type: web
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm ci && npm run build
+    # Relative to rootDir.
+    staticPublishPath: dist/pokerol/browser
+    autoDeployTrigger: commit
+    buildFilter:
+      paths:
+        - frontend/**
+    envVars:
+      - key: NODE_VERSION
+        value: "24"
+    routes:
+      # Single-page application: every unknown path is served by index.html.
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    headers:
+      # Angular bundles have content hashes in their names, so they never change.
+      - path: /*.js
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /*.css
+        name: Cache-Control
+        value: public, max-age=31536000, immutable

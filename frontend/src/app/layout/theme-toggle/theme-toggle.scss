@@ -1,0 +1,30 @@
+@use 'mixins' as *;
+
+.toggle {
+  @include ghost-button;
+  padding: 0;
+}
+
+svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+// The paths are re-created on every mode change, so the animation replays.
+svg > * {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+
+  @include motion {
+    animation: spin-in var(--dur-slow) var(--ease-out);
+  }
+}
+
+@keyframes spin-in {
+  from {
+    transform: rotate(-90deg);
+  }
+}

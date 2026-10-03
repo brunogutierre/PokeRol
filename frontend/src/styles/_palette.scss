@@ -1,0 +1,131 @@
+@use 'sass:list';
+
+// Type badge colors (identical in both themes) and species accent colors.
+$types: (
+  normal: (
+    #a8a77a,
+    #1a1a1a,
+  ),
+  fire: (
+    #ee8130,
+    #1a1a1a,
+  ),
+  water: (
+    #6390f0,
+    #1a1a1a,
+  ),
+  electric: (
+    #f7d02c,
+    #1a1a1a,
+  ),
+  grass: (
+    #7ac74c,
+    #1a1a1a,
+  ),
+  ice: (
+    #96d9d6,
+    #1a1a1a,
+  ),
+  fighting: (
+    #c22e28,
+    #ffffff,
+  ),
+  poison: (
+    #a33ea1,
+    #ffffff,
+  ),
+  ground: (
+    #e2bf65,
+    #1a1a1a,
+  ),
+  flying: (
+    #a98ff3,
+    #1a1a1a,
+  ),
+  psychic: (
+    #f95587,
+    #1a1a1a,
+  ),
+  bug: (
+    #a6b91a,
+    #1a1a1a,
+  ),
+  rock: (
+    #b6a136,
+    #1a1a1a,
+  ),
+  ghost: (
+    #735797,
+    #ffffff,
+  ),
+  dragon: (
+    #6f35fc,
+    #ffffff,
+  ),
+  dark: (
+    #705746,
+    #ffffff,
+  ),
+  steel: (
+    #b7b7ce,
+    #1a1a1a,
+  ),
+  fairy: (
+    #d685ad,
+    #1a1a1a,
+  ),
+);
+
+$species: (
+  black: (
+    #3d3d3d,
+    #9a9a9a,
+  ),
+  blue: (
+    #3b7dd8,
+    #6aa6ff,
+  ),
+  brown: (
+    #a0703c,
+    #c99560,
+  ),
+  gray: (
+    #7b8494,
+    #a3a3a3,
+  ),
+  green: (
+    #2e8b3e,
+    #5cc46a,
+  ),
+  pink: (
+    #c2457f,
+    #f29bc6,
+  ),
+  purple: (
+    #8e5cc4,
+    #b48ae8,
+  ),
+  red: (
+    #e0443a,
+    #ff6b5f,
+  ),
+  white: (
+    #8c929e,
+    #f2f2f2,
+  ),
+  yellow: (
+    #a88508,
+    #f5d545,
+  ),
+);
+
+:root {
+  @each $name, $pair in $types {
+    --t-#{$name}: #{list.nth($pair, 1)};
+    --t-#{$name}-on: #{list.nth($pair, 2)};
+  }
+
+  @each $name, $pair in $species {
+    --sc-#{$name}: light-dark(#{list.nth($pair, 1)}, #{list.nth($pair, 2)});
+  }
+}

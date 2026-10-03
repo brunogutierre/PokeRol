@@ -1,0 +1,122 @@
+// Shared mixins. Import with `@use 'mixins' as *;` (src/styles is on the include path).
+$bp-sm: 600px;
+$bp-md: 900px;
+$bp-lg: 1200px;
+
+@mixin up($bp) {
+  @media (min-width: $bp) {
+    @content;
+  }
+}
+
+@mixin down($bp) {
+  @media (max-width: ($bp - 0.02px)) {
+    @content;
+  }
+}
+
+@mixin motion {
+  @media (prefers-reduced-motion: no-preference) {
+    @content;
+  }
+}
+
+@mixin focus-ring {
+  &:focus-visible {
+    outline: 2px solid transparent;
+    box-shadow: var(--focus-ring);
+  }
+}
+
+@mixin visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+// Outline pokeball drawn with CSS only: ring, horizontal band and center button.
+// `$border` must be a length (percentages are not valid for borders).
+@mixin pokeball-outline($size, $color: currentColor, $border: max(2px, calc($size * 0.07))) {
+  width: $size;
+  height: $size;
+  border-radius: 50%;
+  border: $border solid $color;
+  background:
+    radial-gradient(circle, transparent 0 11%, $color 11% 19%, transparent 19%),
+    linear-gradient(transparent 46%, $color 46% 54%, transparent 54%);
+}
+
+// Filled pokeball (logo mark): primary top half, surface bottom half.
+@mixin pokeball-filled($size) {
+  width: $size;
+  height: $size;
+  border-radius: 50%;
+  border: 2px solid var(--c-text);
+  background:
+    radial-gradient(circle, var(--c-surface) 0 12%, var(--c-text) 12% 22%, transparent 22%),
+    linear-gradient(var(--c-primary-bg) 0 44%, var(--c-text) 44% 56%, var(--c-surface) 56%);
+}
+
+@mixin ghost-button {
+  display: inline-grid;
+  place-items: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 var(--sp-3);
+  border: 1px solid transparent;
+  border-radius: var(--r-md);
+  background: transparent;
+  color: var(--c-text);
+  font: inherit;
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease-out);
+
+  &:hover:not([aria-disabled='true'], :disabled) {
+    background: var(--c-surface-2);
+  }
+
+  &[aria-disabled='true'],
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  @include focus-ring;
+}
+
+@mixin primary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  min-height: 44px;
+  padding: 0 var(--sp-5);
+  border: 0;
+  border-radius: var(--r-pill);
+  background: var(--c-primary-bg);
+  color: var(--c-on-primary);
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+
+  @include focus-ring;
+}
+
+@mixin field {
+  min-height: 44px;
+  padding: 0 var(--sp-3);
+  border: 1px solid var(--c-border-strong);
+  border-radius: var(--r-md);
+  background: var(--c-surface-2);
+  color: var(--c-text);
+  font: inherit;
+
+  @include focus-ring;
+}

@@ -1,1 +1,127 @@
-/* You can add global styles to this file, and also import other style files */
+@use 'tokens';
+@use 'palette';
+@use 'mixins' as *;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-padding-top: calc(var(--header-h) + 16px);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: var(--ff-body);
+  font-size: var(--fs-md);
+  line-height: var(--lh-body);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--ff-display);
+  font-weight: 600;
+  line-height: var(--lh-tight);
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  color: var(--c-accent);
+}
+
+a,
+button,
+input,
+select,
+summary {
+  @include focus-ring;
+}
+
+.visually-hidden {
+  @include visually-hidden;
+}
+
+// Surfaces with SwipeDirective: vertical scrolling stays native; release springs back.
+.swipe-surface {
+  touch-action: pan-y;
+
+  @include motion {
+    transition: transform var(--dur-base) var(--ease-spring);
+
+    &.swiping {
+      transition: none;
+    }
+  }
+}
+
+// View transitions: a short cross-fade by default.
+@include motion {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: var(--dur-base);
+  }
+
+  // Prev / next (detail neighbours, list pages): slide 24px in the travel direction.
+  :root[data-nav-dir='next']::view-transition-old(root) {
+    animation: var(--dur-base) var(--ease-out) both slide-out-to-left;
+  }
+
+  :root[data-nav-dir='next']::view-transition-new(root) {
+    animation: var(--dur-base) var(--ease-out) both slide-in-from-right;
+  }
+
+  :root[data-nav-dir='prev']::view-transition-old(root) {
+    animation: var(--dur-base) var(--ease-out) both slide-out-to-right;
+  }
+
+  :root[data-nav-dir='prev']::view-transition-new(root) {
+    animation: var(--dur-base) var(--ease-out) both slide-in-from-left;
+  }
+}
+
+@keyframes slide-out-to-left {
+  to {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+}
+
+@keyframes slide-out-to-right {
+  to {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+}
+
+@keyframes slide-in-from-right {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+}
+
+@keyframes slide-in-from-left {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

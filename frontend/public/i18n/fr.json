@@ -1,0 +1,169 @@
+{
+  "app": {
+    "skipLink": "Aller au contenu",
+    "home": "PokeRol, aller au Pokédex"
+  },
+  "titles": {
+    "list": "Pokédex",
+    "detail": "Pokémon",
+    "notFound": "Page introuvable"
+  },
+  "language": {
+    "label": "Langue"
+  },
+  "theme": {
+    "label": "Thème : {{ mode }}",
+    "light": "Clair",
+    "dark": "Sombre",
+    "system": "Système"
+  },
+  "state": {
+    "loading": "Chargement…",
+    "errorTitle": "Un problème est survenu",
+    "errorText": "Impossible de charger les données. Vérifiez votre connexion et réessayez.",
+    "retry": "Réessayer"
+  },
+  "notFound": {
+    "title": "Ce Pokémon s'est enfui !",
+    "text": "Nous n'avons pas trouvé ce que vous cherchiez.",
+    "back": "Retour au Pokédex",
+    "random": "Pokémon au hasard"
+  },
+  "list": {
+    "heading": "Pokédex",
+    "results": "{{ count }} Pokémon",
+    "degraded": "Certains résultats peuvent manquer pour le moment. Réessayez dans un instant.",
+    "emptyTitle": "Aucun Pokémon trouvé",
+    "emptyText": "Essayez un autre nom, numéro ou type.",
+    "clearFilters": "Effacer les filtres",
+    "search": "Rechercher un Pokémon",
+    "searchPlaceholder": "Rechercher par nom ou numéro",
+    "clearSearch": "Effacer la recherche",
+    "type": "Filtrer par type",
+    "allTypes": "Tous les types",
+    "sort": "Trier par",
+    "sortNumberAsc": "N° ↑",
+    "sortNumberDesc": "N° ↓",
+    "sortNameAsc": "Nom A–Z",
+    "sortNameDesc": "Nom Z–A",
+    "invalidTitle": "Ces filtres ne sont pas valides",
+    "invalidText": "Le lien est peut-être obsolète. Effacez les filtres pour voir tous les Pokémon."
+  },
+  "pagination": {
+    "label": "Pagination",
+    "first": "Première page",
+    "prev": "Page précédente",
+    "next": "Page suivante",
+    "last": "Dernière page",
+    "page": "Page",
+    "of": "sur {{ total }}",
+    "pageInput": "Numéro de page",
+    "status": "Page {{ page }} sur {{ total }}",
+    "swipeHint": "Balayez pour changer de page"
+  },
+  "detail": {
+    "back": "Retour à la liste",
+    "neighbours": "Pokémon voisins",
+    "prev": "Pokémon précédent, {{ number }}",
+    "next": "Pokémon suivant, {{ number }}",
+    "artworkAlt": "Illustration officielle de {{ name }}",
+    "flavor": "Entrée du Pokédex",
+    "fallbackLanguage": "Certaines données ne sont disponibles qu'en anglais.",
+    "stats": "Statistiques de base",
+    "total": "Total",
+    "abilities": "Talents",
+    "hidden": "Caché",
+    "biology": "Biologie",
+    "height": "Taille",
+    "weight": "Poids",
+    "color": "Couleur",
+    "shape": "Forme",
+    "habitat": "Habitat",
+    "unknown": "Inconnu",
+    "evolution": "Évolution",
+    "evolutionChain": "Chaîne d'évolution",
+    "noEvolution": "Ce Pokémon n'évolue pas.",
+    "varieties": "Formes",
+    "default": "Par défaut"
+  },
+  "wakeUp": {
+    "waking": "Réveil du serveur… l'hébergement gratuit se met en veille quand il est inactif. Cela peut prendre environ une minute.",
+    "connected": "Connecté"
+  },
+  "types": {
+    "normal": "Normal",
+    "fire": "Feu",
+    "water": "Eau",
+    "electric": "Électrik",
+    "grass": "Plante",
+    "ice": "Glace",
+    "fighting": "Combat",
+    "poison": "Poison",
+    "ground": "Sol",
+    "flying": "Vol",
+    "psychic": "Psy",
+    "bug": "Insecte",
+    "rock": "Roche",
+    "ghost": "Spectre",
+    "dragon": "Dragon",
+    "dark": "Ténèbres",
+    "steel": "Acier",
+    "fairy": "Fée",
+    "stellar": "Stellaire"
+  },
+  "stats": {
+    "hp": "Points de vie",
+    "attack": "Attaque",
+    "defense": "Défense",
+    "special-attack": "Attaque Spéciale",
+    "special-defense": "Défense Spéciale",
+    "speed": "Vitesse"
+  },
+  "statsShort": {
+    "hp": "PV",
+    "attack": "Atq",
+    "defense": "Déf",
+    "special-attack": "Atq. Spé",
+    "special-defense": "Déf. Spé",
+    "speed": "Vit"
+  },
+  "colors": {
+    "black": "Noir",
+    "blue": "Bleu",
+    "brown": "Marron",
+    "gray": "Gris",
+    "green": "Vert",
+    "pink": "Rose",
+    "purple": "Violet",
+    "red": "Rouge",
+    "white": "Blanc",
+    "yellow": "Jaune"
+  },
+  "shapes": {
+    "ball": "Boule",
+    "squiggle": "Serpentin",
+    "fish": "Poisson",
+    "arms": "Bras",
+    "blob": "Masse",
+    "upright": "Dressé",
+    "legs": "Jambes",
+    "quadruped": "Quadrupède",
+    "wings": "Ailes",
+    "tentacles": "Tentacules",
+    "heads": "Têtes",
+    "humanoid": "Humanoïde",
+    "bug-wings": "Ailes d'insecte",
+    "armor": "Armure"
+  },
+  "habitats": {
+    "cave": "Grotte",
+    "forest": "Forêt",
+    "grassland": "Prairie",
+    "mountain": "Montagne",
+    "rare": "Rare",
+    "rough-terrain": "Terrain accidenté",
+    "sea": "Mer",
+    "urban": "Urbain",
+    "waters-edge": "Bord de l'eau"
+  }
+}

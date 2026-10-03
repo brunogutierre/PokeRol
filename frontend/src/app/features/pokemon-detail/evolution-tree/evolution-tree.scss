@@ -1,0 +1,128 @@
+@use 'mixins' as *;
+
+// Mobile: stages stacked vertically, branches wrap in a grid.
+// >= md: stages flow horizontally, branches stack with a bracket connector.
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @include up($bp-md) {
+    flex-direction: row;
+  }
+}
+
+.node {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  width: 112px;
+  padding: var(--sp-2);
+  border-radius: var(--r-md);
+  background: var(--c-surface-2);
+  color: var(--c-text);
+  text-align: center;
+  text-decoration: none;
+
+  &:hover {
+    background: color-mix(in oklab, var(--species) 14%, var(--c-surface-2));
+  }
+
+  &[aria-current='page'] {
+    outline: 2px solid var(--c-primary);
+    outline-offset: 0;
+  }
+}
+
+img {
+  width: 72px;
+  height: 72px;
+  image-rendering: pixelated;
+}
+
+.name {
+  font-family: var(--ff-display);
+  font-weight: 500;
+  line-height: var(--lh-tight);
+  overflow-wrap: anywhere;
+}
+
+.number {
+  color: var(--c-muted);
+  font-family: var(--ff-mono);
+  font-size: var(--fs-xs);
+}
+
+.children {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  padding: var(--sp-5) 0 0;
+  list-style: none;
+
+  // Connector from the parent to its children.
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: var(--sp-5);
+    background: var(--c-border-strong);
+  }
+
+  &.branched {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(112px, 1fr));
+    gap: var(--sp-3);
+    width: 100%;
+    max-width: 400px;
+  }
+
+  @include up($bp-md) {
+    padding: 0 0 0 var(--sp-6);
+
+    &::before {
+      top: 50%;
+      left: 0;
+      width: var(--sp-5);
+      height: 2px;
+    }
+
+    &.branched {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--sp-2);
+      width: auto;
+      max-width: none;
+
+      // Bracket joining the branches.
+      > li {
+        position: relative;
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: calc(-1 * var(--sp-3));
+          width: var(--sp-3);
+          height: 2px;
+          background: var(--c-border-strong);
+        }
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 48px;
+        bottom: 48px;
+        left: calc(var(--sp-6) - var(--sp-3));
+        width: 2px;
+        background: var(--c-border-strong);
+      }
+    }
+  }
+}

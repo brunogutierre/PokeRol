@@ -1,0 +1,20 @@
+# Every species with what the list page needs: localized names, color and the
+# types / abilities of its default Pokémon. One request instead of ~1000 REST calls.
+query SpeciesIndex($languages: [String!]!) {
+  species: pokemonspecies(order_by: {id: asc}) {
+    id
+    name
+    color: pokemoncolor { name }
+    names: pokemonspeciesnames(where: {language: {name: {_in: $languages}}}) {
+      name
+      language { name }
+    }
+    pokemon: pokemons(where: {is_default: {_eq: true}}) {
+      types: pokemontypes(order_by: {slot: asc}) { type { name } }
+      abilities: pokemonabilities(order_by: {slot: asc}) {
+        is_hidden
+        ability { name }
+      }
+    }
+  }
+}

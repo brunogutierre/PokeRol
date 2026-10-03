@@ -1,0 +1,53 @@
+<form class="toolbar" role="search" (submit)="$event.preventDefault()">
+  <div class="search">
+    <label for="list-search" class="visually-hidden">{{ 'list.search' | transloco }}</label>
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="11" cy="11" r="7" />
+      <path d="M20 20l-4-4" />
+    </svg>
+    <input
+      #search
+      id="list-search"
+      type="search"
+      autocomplete="off"
+      enterkeyhint="search"
+      maxlength="50"
+      [placeholder]="'list.searchPlaceholder' | transloco"
+      [value]="term()"
+      (input)="onInput(search.value)"
+    />
+    @if (term()) {
+      <button
+        type="button"
+        class="clear"
+        [attr.aria-label]="'list.clearSearch' | transloco"
+        (click)="clear(search)"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+      </button>
+    }
+  </div>
+
+  <label class="field">
+    <span class="visually-hidden">{{ 'list.type' | transloco }}</span>
+    <select #type (change)="onType(type.value)">
+      <option value="" [selected]="query().type === ''">{{ 'list.allTypes' | transloco }}</option>
+      @for (t of types(); track t.key) {
+        <option [value]="t.key" [selected]="t.key === query().type">
+          {{ t | localName: 'types' }}
+        </option>
+      }
+    </select>
+  </label>
+
+  <label class="field">
+    <span class="visually-hidden">{{ 'list.sort' | transloco }}</span>
+    <select #sort (change)="onSort(sort.value)">
+      @for (option of sortOptions; track option.value) {
+        <option [value]="option.value" [selected]="option.value === sortValue()">
+          {{ option.label | transloco }}
+        </option>
+      }
+    </select>
+  </label>
+</form>
