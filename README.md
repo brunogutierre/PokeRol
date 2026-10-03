@@ -6,7 +6,16 @@ that adapts [PokeAPI](https://pokeapi.co/) data for easy consumption.
 It is a modern rewrite of a 2021 study project ([brunos-pokedex](https://github.com/brunogutierre/brunos-pokedex)),
 which called PokeAPI directly from the browser.
 
-> Work in progress. This README grows with every pull request.
+## Live demo
+
+| | URL |
+|---|---|
+| App | **https://pokerol.onrender.com** |
+| API (Swagger UI) | https://pokerol-api.onrender.com/swagger-ui.html |
+| API health | https://pokerol-api.onrender.com/actuator/health |
+
+Both run on Render's free tier. The API sleeps after 15 minutes without traffic, so the first visit can
+take about a minute while it wakes up; the app shows a "waking up the server" banner meanwhile.
 
 ## Goals
 
@@ -176,10 +185,10 @@ The end-to-end tests mock the API with `page.route`, so they do not need the bac
 Both apps run on [Render](https://render.com) free tier, described as code in
 [`render.yaml`](render.yaml) (a [Blueprint](https://render.com/docs/blueprint-spec)):
 
-| Service | Type | Details |
-|---|---|---|
-| `pokerol-api` | Web service (Docker) | `backend/Dockerfile`, health check `/actuator/health`, rebuilt only when `backend/**` changes |
-| `pokerol` | Static site | `npm ci && npm run build` in `frontend/`, SPA rewrite to `index.html`, immutable caching of hashed bundles |
+| Service | Type | URL | Details |
+|---|---|---|---|
+| `pokerol-api` | Web service (Docker) | https://pokerol-api.onrender.com | `backend/Dockerfile`, health check `/actuator/health`, rebuilt only when `backend/**` changes |
+| `pokerol` | Static site | https://pokerol.onrender.com | `npm ci && npm run build` in `frontend/`, SPA rewrite to `index.html`, immutable caching of hashed bundles |
 
 - **Docker image**: multi-stage build (JDK to build, JRE to run), Spring Boot layered jar
   (dependencies in their own cached layer), non-root user, and a **JDK 25 AOT cache** created by a
